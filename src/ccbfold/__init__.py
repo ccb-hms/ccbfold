@@ -1,30 +1,11 @@
-from pathlib import Path
+import click
+from .wc import wc
+from .split_msa import split_msa
 
-import click  # <- click dependency
+@click.group()
+def main():
+    """ccbfold CLI"""
+    pass
 
-def wc(filepath: Path, show_bytes: bool, show_words: bool, show_lines: bool) -> None:
-    content = filepath.read_bytes()
-    byte_count = len(content)
-    word_count = len(content.split())
-    line_count = len(content.splitlines())
-    output = (
-        (f"{line_count:8}" if show_lines else "")
-        + (f"{word_count:8}" if show_words else "")
-        + (f"{byte_count:8}" if show_bytes else "")
-        + f" {filepath}"
-    )
-    print(output)
-
-if __name__ == "__main__":
-    wc(Path(__file__), True, True, True)
-
-@click.command()
-@click.argument("filepath", type=Path)
-@click.option("-c", is_flag=True, help="Show byte count.")
-@click.option("-w", is_flag=True, help="Show word count.")
-@click.option("-l", is_flag=True, help="Show line count.")
-def main(filepath: Path, c: bool | None, w: bool | None, l: bool | None) -> None:
-    # If none of the options was explicitly set, they're all `True`.
-    if {c, w, l} == {False}:
-        c, w, l = True, True, True
-    wc(filepath, c, w, l)
+main.add_command(wc)
+main.add_command(split_msa)
