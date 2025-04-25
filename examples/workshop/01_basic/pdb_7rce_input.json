@@ -1,0 +1,32 @@
+{
+    "name": "Protein-DNA-Ion: PDB 7RCE",
+    "modelSeeds": [1],
+    "sequences": [
+      {
+        "protein": {
+          "id": "A",
+          "sequence": "MASSRRESINPWILTGFADAEGSFGLSILNRNRGTARYHTRLSFTIMLHNKDKSILENIQSTWKVGSILNNGDHYVSLVVYRFEDLKVIIDHFEKYPLITQKLGDYKLFKQAFSVMENKEHLKENGIKELVRIKAKMNWGLNDELKKAFPENISKERPLINKNIPNFKWLAGFTSGDGSFFVRLRKSNVNARVRVQLVFEISQHIRDKNLMNSLITYLGCGHIYEGNKSERSWLQFRVEKFSDINDKIIPVFQENTLIGVKLEDFEDWCKVAKLIEEKKHLTESGLDEIKKIKLNMNKGR"
+        }
+      },
+      {
+        "dna": {
+          "id": "B",
+          "sequence": "GGGGGCATGCAGATCCCACAGGCGCG"
+        }
+      },
+      {
+        "ligand": {
+          "id": ["C", "D", "E"],
+          "ccdCodes": ["CA"]
+        }
+      }
+      {
+        "ligand": {
+          "id": "F",
+          "ccdCodes": ["NA"]
+        }
+      }
+    ],
+    "dialect": "alphafold3",
+    "version": 3
+}
