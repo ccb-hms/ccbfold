@@ -1,3 +1,9 @@
 - figure out GPUs and partitions that can use and fix
+    - I think only l40s
 - figure out memory/time requirement and minimize
+    - have initial guess based in previous benchmarking
 - test examples and fix errors
+- check in af3cli with msa (exercise 04) respects null templates 
+    - I beleive it does not -- needed to get AF3 to generate templates
+    - after confirming, open issue
+    - if not fixed in time, just run in no-template mode 
