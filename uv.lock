@@ -3,15 +3,31 @@ revision = 1
 requires-python = ">=3.12"
 
 [[package]]
+name = "af3cli"
+version = "0.4.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "fire" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d6/e7/dbe71c91e2065966495bdf896e493e5ca89515136f3cc928edc9ba92703d/af3cli-0.4.1.tar.gz", hash = "sha256:bf28f531456a3d56faabd5880a007ae783f534a6a4f6a5a62f2b5e77fa5a0d40", size = 74077 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/20/1d/c6ce330f7768c3df925bfc7206d45c266809414ba350735fe44965497c09/af3cli-0.4.1-py3-none-any.whl", hash = "sha256:15754947c27ff13a10ada715176d808ebb4f94c1b34dda5e8596b1abda3e67e3", size = 35049 },
+]
+
+[[package]]
 name = "ccbfold"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "af3cli" },
     { name = "click" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "click", specifier = ">=8.1.8" }]
+requires-dist = [
+    { name = "af3cli", specifier = ">=0.4.1" },
+    { name = "click", specifier = ">=8.1.8" },
+]
 
 [[package]]
 name = "click"
@@ -32,4 +48,22 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44", size = 27697 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6", size = 25335 },
+]
+
+[[package]]
+name = "fire"
+version = "0.7.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "termcolor" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/6b/b6/82c7e601d6d3c3278c40b7bd35e17e82aa227f050aa9f66cb7b7fce29471/fire-0.7.0.tar.gz", hash = "sha256:961550f07936eaf65ad1dc8360f2b2bf8408fad46abbfa4d2a3794f8d2a95cdf", size = 87189 }
+
+[[package]]
+name = "termcolor"
+version = "3.0.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/f8/b6/8e2aaa8aeb570b5cc955cd913b083d96c5447bbe27eaf330dfd7cc8e3329/termcolor-3.0.1.tar.gz", hash = "sha256:a6abd5c6e1284cea2934443ba806e70e5ec8fd2449021be55c280f8a3731b611", size = 12935 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a6/7e/a574ccd49ad07e8b117407bac361f1e096b01f1b620365daf60ff702c936/termcolor-3.0.1-py3-none-any.whl", hash = "sha256:da1ed4ec8a5dc5b2e17476d859febdb3cccb612be1c36e64511a6f2485c10c69", size = 7157 },
 ]
