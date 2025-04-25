@@ -6,23 +6,23 @@
 #SBATCH -e logs/af3_job_%A_%a.err       # STDERR file
 #SBATCH --gres=gpu:l40s:1        # GPU requested
 #SBATCH -t 0-01:00               # Runtime in D-HH:MM
-#SBATCH --account=zaklab
 #SBATCH --array=0-9              # Job array indices (for 10 .json files)
 
 module load alphafold/3.0.1
 
-# Get the list of input files
+# Get the input json file
 INPUT_DIR="af3_inputs"
 INPUT_FILES=(${INPUT_DIR}/*.json)
 INPUT_FILE=${INPUT_FILES[$SLURM_ARRAY_TASK_ID]}
 
-# Derive job name from file name
+# Derive job name and output directory from file name
 JOB_NAME=$(basename "$INPUT_FILE" .json)
-OUTPUT_DIR="af3_outputs/${JOB_NAME}"
+OUTPUT_DIR="af3_outputs"
+JOB_OUTPUT_DIR="${OUTPUT_DIR}/${JOB_NAME}"
 
 # Make sure output directory exists
 mkdir -p "$OUTPUT_DIR"
 
 run_alphafold.py \
    --json_path="$INPUT_FILE" \
-   --output_dir="$OUTPUT_DIR"
+   --output_dir="$JOB_OUTPUT_DIR"

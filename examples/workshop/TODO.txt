@@ -1,0 +1,3 @@
+- figure out GPUs and partitions that can use and fix
+- figure out memory/time requirement and minimize
+- test examples and fix errors

@@ -3,7 +3,7 @@ from pathlib import Path
 from af3cli import InputBuilder, ProteinSequence, SMILigand
 
 # Constants
-INPUT_FILE = "preliminaryTests.tsv"
+INPUT_FILE = "../data/preliminaryTests.tsv"
 OUTPUT_DIR = Path("af3_inputs")
 OUTPUT_DIR.mkdir(exist_ok=True)
 

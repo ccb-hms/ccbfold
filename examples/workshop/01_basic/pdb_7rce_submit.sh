@@ -6,7 +6,6 @@
 #SBATCH -e pdb_7rce_%j.err       # File to which STDERR will be written, including job ID (%j)
 #SBATCH --gres=gpu:l40s:1        # GPU requested
 #SBATCH -t 0-01:00               # Runtime in D-HH:MM format
-#SBATCH --account=zaklab
 
 module load alphafold/3.0.1
 
