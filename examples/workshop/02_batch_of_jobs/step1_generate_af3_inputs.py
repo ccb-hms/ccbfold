@@ -7,9 +7,6 @@ INPUT_FILE = "../data/preliminaryTests.tsv"
 OUTPUT_DIR = Path("af3_inputs")
 OUTPUT_DIR.mkdir(exist_ok=True)
 
-LIGAND_NUM = 1
-SEQUENCE_NUM = 1
-
 # Read the TSV file
 with open(INPUT_FILE, newline='', encoding='utf-8') as f:
     reader = csv.DictReader(f, delimiter='\t')
@@ -25,8 +22,8 @@ with open(INPUT_FILE, newline='', encoding='utf-8') as f:
         filename = OUTPUT_DIR / f"{job_name}.json"
 
         # Build AF3 input
-        sequence = ProteinSequence(seq_str=sequence_str, num=SEQUENCE_NUM)
-        ligand = SMILigand(ligand_value=smiles_str, num=LIGAND_NUM)
+        sequence = ProteinSequence(seq_str=sequence_str)
+        ligand = SMILigand(ligand_value=smiles_str)
         input_builder = InputBuilder()
         input_builder.set_name(job_name)
         input_builder.add_sequence(sequence)
