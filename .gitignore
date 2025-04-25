@@ -11,3 +11,4 @@ wheels/
 
 # Self added
 examples/workshop/02_batch_of_jobs/af3_inputs/
+examples/workshop/data/preliminaryTests.fasta
