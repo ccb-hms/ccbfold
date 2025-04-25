@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH -c 10                    # Request 10 cores
-#SBATCH --mem=16G                # Memory total in GiB
+#SBATCH -c 20                    # Request 20 cores
+#SBATCH --mem=64G                # Memory total in GiB
 #SBATCH --partition=gpu_quad     # Partition to run in
 #SBATCH -o logs/af3_job_%A_%a.out       # STDOUT file
 #SBATCH -e logs/af3_job_%A_%a.err       # STDERR file

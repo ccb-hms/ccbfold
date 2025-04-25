@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH -c 10                    # Request 10 cores
-#SBATCH --mem=16G                # Memory total in GiB
-#SBATCH --partition=gpu_quad     # Partition to run in
+#SBATCH -c 20                    # Request 20 cores
+#SBATCH --mem=64G                # Memory total in GiB
+#SBATCH --partition=short        # Partition to run in
 #SBATCH -o logs/af3_job_%A_%a.out       # STDOUT file
 #SBATCH -e logs/af3_job_%A_%a.err       # STDERR file
 #SBATCH --gres=gpu:l40s:1        # GPU requested
@@ -10,7 +10,7 @@
 
 module load alphafold/3.0.1
 
-# Get the list of input files
+# Get the input json file
 INPUT_DIR="af3_inputs"
 INPUT_FILES=(${INPUT_DIR}/*.json)
 INPUT_FILE=${INPUT_FILES[$SLURM_ARRAY_TASK_ID]}
