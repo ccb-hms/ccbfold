@@ -31,7 +31,7 @@ with open(INPUT_FILE, newline='', encoding='utf-8') as f:
         input_builder.set_name(job_name)
         input_builder.add_sequence(sequence)
         input_builder.add_ligand(ligand)
-        input_builder.set_version(3)
+        input_builder.set_version(2)
         input_builder.set_seeds([1])
         internal_input = input_builder.build()
 

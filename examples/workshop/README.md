@@ -43,7 +43,7 @@ Save the following into `pdb_7rce_input.json`:
           "id": ["C", "D", "E"],
           "ccdCodes": ["CA"]
         }
-      }
+      },
       {
         "ligand": {
           "id": "F",
@@ -52,7 +52,7 @@ Save the following into `pdb_7rce_input.json`:
       }
     ],
     "dialect": "alphafold3",
-    "version": 3
+    "version": 2
 }
 ```
 
@@ -64,7 +64,7 @@ cd 01_basic
 nano pdb_7rce_input.json
 
 # to paste: Ctrl (Cmd on Mac) + Shift + v
-# to save: Ctrl (Cmd on Mac) + o
+# to save: Ctrl (Cmd on Mac) + o then Enter
 # to exit nano: Ctrl (Cmd on Mac) + x
 ```
 
@@ -158,7 +158,7 @@ with open(INPUT_FILE, newline='', encoding='utf-8') as f:
         input_builder.set_name(job_name)
         input_builder.add_sequence(sequence)
         input_builder.add_ligand(ligand)
-        input_builder.set_version(3)
+        input_builder.set_version(2)
         input_builder.set_seeds([1])
         internal_input = input_builder.build()
 
