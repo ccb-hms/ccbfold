@@ -92,7 +92,7 @@ def plot_pae(pae: list[int], token_chain_ids: list[str]) -> None:
     plt.tight_layout()
 
 
-def process_json(target: Path) -> None:
+def process_json(target: Path, plot_pae=True, plot_plddt=True) -> None:
     ''' Scrape and plot pLDDT and PAE information from AlphaFold3 JSONs '''
 
     with open(target) as F:
@@ -101,7 +101,7 @@ def process_json(target: Path) -> None:
     if 'atom_chain_ids' not in data.keys():
         return
     # pLDDT
-    if args.plddt:
+    if plot_plddt:
         plot_plddt(data['atom_plddts'], data['atom_chain_ids'])
         plt.savefig(
             target.parent.joinpath(
@@ -110,7 +110,7 @@ def process_json(target: Path) -> None:
         )
         plt.close()
     # PAE
-    if args.pae:
+    if plot_pae:
         plot_pae(data['pae'], data['token_chain_ids'])
         plt.savefig(
             target.parent.joinpath(
