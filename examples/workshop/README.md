@@ -85,12 +85,14 @@ Save the following into the newly created `pdb_7rce_input.json`:
 }
 ```
 
-To do this on the command line on O2, run the following (shown for this exercise only): 
 
+We also need a sbatch script in order to submit our input to the Slurm workload manager on O2:
 
+```bash
+nano pdb_7rce_submit.sh
+```
 
-
-We also need a sbatch script in order to submit our input to the Slurm workload manager on O2. In the same `01_basic` directory, save the following to `pdb_7rce_submit.sh`:
+Paste and save the following:
 
 ```bash
 #!/bin/bash
@@ -200,7 +202,13 @@ We can now generate our 10 AlphaFold3 inputs:
 python step1_generate_af3_inputs.py
 ```
 
-To submit our inputs, we can use a single sbatch script with the `#SBATCH --array=0-9` declaration. Save the following to `step2_submit_batch.sh`:
+To submit our inputs, we can use a single sbatch script with the `#SBATCH --array=0-9` declaration:
+
+```bash
+nano step2_submit_batch.sh
+```
+
+Save the following to this file:
 
 ```bash
 #!/bin/bash
