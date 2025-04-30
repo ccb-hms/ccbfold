@@ -1,6 +1,8 @@
 ---
 title: "AlphaFold3 Workshop"
 ---
+# AlphaFold3 Workshop
+
 AlphaFold3 is blah blah blah and way better than AlphaFold2 because of blah blah blah
 
 ### Setup
