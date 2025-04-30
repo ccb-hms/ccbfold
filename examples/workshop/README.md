@@ -1,13 +1,5 @@
 ---
 title: "AlphaFold3 Workshop"
-highlight: pygments
-format:
-  html:
-    code-fold: false
-    code-overflow: wrap
-execute:
-    eval: false
-jupyter: python3
 ---
 AlphaFold3 is blah blah blah and way better than AlphaFold2 because of blah blah blah
 
