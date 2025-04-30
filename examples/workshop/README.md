@@ -13,13 +13,42 @@ AlphaFold3 is blah blah blah and way better than AlphaFold2 because of blah blah
 
 ### Setup
 
-- Create and activate our virtual environment
+We start by creating a reproducible python environment with all the necessary packages. To do so, we first install [uv](https://docs.astral.sh/uv/), an extremely fast Python project manager written in Rust. We then use `uv` to restore the virtual environment for `ccbfold`, a python package created for the development of the workshop:
+
+```bash
+# install uv package manager
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# add to PATH
+source $HOME/.local/bin/env
+
+# download ccbfold repo
+git clone https://github.com/ccb-hms/ccbfold.git
+cd ccbfold
+
+# restore venv and activate
+uv sync
+source .venv/bin/activate
+
+# create and move to directory for workshop
+mkdir ../af3_workshop && cd $_
+```
 
 ### Exercise 1: Hello Alphafold3
 
-Let's start off with a simple example to get started. This uses the amino acid sequence for a DNA binding protein and gene editing meganuclease as well as the associated DNA sequence. For this complex, the crystal structure has been experimentally determined using x-ray diffraction and deposited to [PDB entry 7RCE](https://www.rcsb.org/structure/7RCE). Here is the corresponding input file that we will need for AlphaFold3:
+Let's start off with a simple example to get started. This uses the amino acid sequence for a DNA binding protein and gene editing meganuclease as well as the associated DNA sequence. For this complex, the crystal structure has been experimentally determined using x-ray diffraction and deposited to [PDB entry 7RCE](https://www.rcsb.org/structure/7RCE). Let's create the input file that we will need for AlphaFold3:
 
-Save the following into `pdb_7rce_input.json`:
+```bash
+mkdir 01_basic
+cd 01_basic
+nano pdb_7rce_input.json
+
+# to paste: Ctrl (Cmd on Mac) + Shift + v
+# to save: Ctrl (Cmd on Mac) + o then Enter
+# to exit nano: Ctrl (Cmd on Mac) + x
+```
+
+Save the following into the newly created `pdb_7rce_input.json`:
 
 ```json
 {
@@ -58,15 +87,6 @@ Save the following into `pdb_7rce_input.json`:
 
 To do this on the command line on O2, run the following (shown for this exercise only): 
 
-```bash
-mkdir 01_basic
-cd 01_basic
-nano pdb_7rce_input.json
-
-# to paste: Ctrl (Cmd on Mac) + Shift + v
-# to save: Ctrl (Cmd on Mac) + o then Enter
-# to exit nano: Ctrl (Cmd on Mac) + x
-```
 
 
 
@@ -97,7 +117,7 @@ sbatch pdb_7rce_submit.sh
 
 ### Exercise 2: Running a Batch of Jobs
 
-If we have a lot of structures that we want to predict, seting up the above manually can be quite tedious and error prone. To make it a lot easier, let's take advantage of the python package `af3cli` to generate our AlphaFold3 input JSON files from a csv that looks like this:
+If we have a lot of structures that we want to predict, seting up the above manually can be quite tedious and error prone. To make it a lot easier, let's take advantage of the python package `af3cli` to generate our AlphaFold3 input JSON files programatically. The input sequences and ligands will be read in from the following TSV: 
 
 |   Symbol   |   ProteinSequence                            |   Compound  |   SMILES                                        |
 |------------|----------------------------------------------|-------------|-------------------------------------------------|
@@ -127,7 +147,6 @@ nano step1_generate_af3_inputs.py
 paste the following into this file:
 
 ```python
-# step1_generate_af3_inputs.py
 import csv
 from pathlib import Path
 from af3cli import InputBuilder, ProteinSequence, SMILigand
@@ -171,7 +190,7 @@ Before we can run the above, we first need to download the data. Since the data 
 
 ```bash
 mkdir ../data
-curl -L -o ../data/preliminaryTests.tsv "https://raw.githubusercontent.com/ccb-hms/ccbfold/refs/heads/main/examples/workshop/data/preliminaryTests.tsv?token=GHSAT0AAAAAAC7WH6UN24Z5AZRPCCJXJXWW2APVXBA"
+curl -L -o ../data/preliminaryTests.tsv "https://raw.githubusercontent.com/ccb-hms/ccbfold/refs/heads/main/examples/workshop/data/preliminaryTests.tsv"
 ```
 
 We can now generate our 10 AlphaFold3 inputs:
