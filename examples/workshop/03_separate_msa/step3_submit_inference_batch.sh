@@ -18,7 +18,6 @@ INPUT_FILE="${INPUT_DIR}/${JOB_NAME}/${JOB_NAME}_data.json"
 
 # Derive job name and output directory from file name
 OUTPUT_DIR="af3_inference_outputs"
-JOB_OUTPUT_DIR="${OUTPUT_DIR}/${JOB_NAME}"
 
 # Make sure output directory exists
 mkdir -p "$OUTPUT_DIR"
@@ -26,5 +25,5 @@ mkdir -p "$OUTPUT_DIR"
 # Run AlphaFold3 Inference only
 run_alphafold.py \
    --json_path="$INPUT_FILE" \
-   --output_dir="$JOB_OUTPUT_DIR" \
+   --output_dir="$OUTPUT_DIR" \
    --norun_data_pipeline
