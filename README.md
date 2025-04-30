@@ -1,7 +1,9 @@
 [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](./LICENSE)
 # CCB/RC Alphafold 3 workshop
 
-The goal of this workshop is to provide a hand-on introduction to running Alphafold 3 jobs on the O2 cluster at HMS
+The goal of this workshop is to provide an introduction to running Alphafold 3 jobs on the O2 cluster at HMS
+
+These scripts have been tested to be capeable of running on the cluster.
 
 
 ## Prerequisites
