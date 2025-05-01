@@ -353,3 +353,32 @@ sbatch step3_submit_inference_batch.sh
 
 ### Exercise 4: Perform MSA with GPU mmseqs2
 
+While splitting the MSA and Inference steps (Exercise 3) is useful for reducing idle GPU time, it doesn't increase the number of structures we can predict per unit time. In order to do so, we can instead turn to alternative MSA approaches, which can greatly increase throughput, given that the MSA represents ~ 5/6th of the total time spent by AlphaFold3. In particular, `mmseqs2` provides a robust GPU implementation that can generate MSAs for a batch of amino acid sequences that can speed up the MSA step by ~ 10x. To use `mmseqs2`, we first generate a `.fasta` file with all our amino acid sequences:
+
+```bash
+nano step1_generate_colabfold_msa_input.py
+```
+
+Paste the following python script into this file and save:
+
+```python
+import csv
+
+# Constants
+INPUT_FILE = "../data/preliminaryTests.tsv"
+OUTPUT_FILE = "../data/preliminaryTests.fasta"
+
+with open(INPUT_FILE, 'r') as input_tsv, open(OUTPUT_FILE, 'w') as output_fasta:
+    input_reader = csv.DictReader(input_tsv, delimiter='\t')
+    for row in input_reader:
+
+        # Extract data from each row
+        symbol = row["Symbol"]
+        compound = row["Compound"]
+        sequence_str = row["ProteinSequence"]
+
+        # Add sequence to output fasta
+        output_fasta.write(f">{symbol}_{compound}\n")
+        output_fasta.write(f"{sequence_str}\n")
+
+```
