@@ -356,6 +356,9 @@ sbatch step3_submit_inference_batch.sh
 While splitting the MSA and Inference steps (Exercise 3) is useful for reducing idle GPU time, it doesn't increase the number of structures we can predict per unit time. In order to do so, we can instead turn to alternative MSA approaches, which can greatly increase throughput, given that the MSA represents ~ 5/6th of the total time spent by AlphaFold3. In particular, `mmseqs2` provides a robust GPU implementation that can generate MSAs for a batch of amino acid sequences that can speed up the MSA step by ~ 10x. To use `mmseqs2`, we first generate a `.fasta` file with all our amino acid sequences:
 
 ```bash
+cd ..
+mkdir 04_mmseqs2_msa
+cd 04_mmseqs2_msa
 nano step1_generate_colabfold_msa_input.py
 ```
 
@@ -389,7 +392,7 @@ We next execute the above script to generate our `.fasta` file:
 python step1_generate_colabfold_msa_input.py
 ```
 
-To actually run the MSA, we create a sbatch script that uses `mmseqs2` with our input `.fasta`:
+To actually run the MSAs, we create a sbatch script that uses `mmseqs2` with our input `.fasta`:
 
 ```bash
 nano step2_submit_colabfold_msa.sh
@@ -401,7 +404,7 @@ Paste the following into this file:
 #!/bin/bash
 #SBATCH -c 20                    # Request 20 cores
 #SBATCH --mem=64G                # Memory total in GiB
-#SBATCH --partition=short        # Partition to run in
+#SBATCH --partition=gpu_quad     # Partition to run in
 #SBATCH -o logs/colabfold_msa_job_%A_%a.out       # STDOUT file
 #SBATCH -e logs/colabfold_msa_job_%A_%a.err       # STDERR file
 #SBATCH --gres=gpu:l40s:1        # GPU requested
@@ -413,13 +416,82 @@ module load mmseqs2
 
 OUTPUT_DIR="colabfold_msa_outputs"
 
-# Shared database directory for colabfold MSA
+# Shared database directory for colabfold MSAs
 DATABASE_DIR="/n/shared_db/tmp/colabfold"
 
-# Run MSA with mmseqs2 on GPU
+# Run MSAs with mmseqs2 on GPU
 colabfold_search \
    --gpu 1 \
    ../data/preliminaryTests.fasta \
    $DATABASE_DIR \
    $OUTPUT_DIR
+```
+
+We then submit the job as usual:
+
+```bash
+sbatch step2_submit_colabfold_msa.sh
+# Submitted batch job 66827716
+```
+
+We pay attention to the job id for the submission as we will use it for a dependency for the inference step:
+
+```bash
+MSA_JOB_ID=66827716
+```
+
+Now we setup our AlphaFold3 input files so that they can use the MSAs from `mmseqs2`:
+
+```bash
+nano step3_generate_af3_inference_inputs.py
+```
+
+Paste the following into this file:
+
+```python
+import csv
+from pathlib import Path
+from af3cli import InputBuilder, ProteinSequence, SMILigand, MSA
+
+# Constants
+INPUT_FILE = "../data/preliminaryTests.tsv"
+MSA_INPUT_DIR = Path("colabfold_msa_outputs")
+OUTPUT_DIR = Path("af3_inference_inputs")
+OUTPUT_DIR.mkdir(exist_ok=True)
+
+# Read the TSV file
+with open(INPUT_FILE, newline='', encoding='utf-8') as f:
+    reader = csv.DictReader(f, delimiter='\t')
+    for row in reader:
+        # Extract data from each row
+        symbol = row["Symbol"]
+        compound = row["Compound"]
+        sequence_str = row["ProteinSequence"]
+        smiles_str = row["SMILES"]
+
+        # Construct job name and output filename
+        job_name = f"{symbol}_{compound}"
+        output_filename = OUTPUT_DIR / f"{job_name}.json"
+        msa_filename = MSA_INPUT_DIR / f"{job_name}.a3m"
+
+        # Build AF3 input with MSA from colabfold
+        msa = MSA(unpaired=str(msa_filename), unpaired_is_path=True)
+        sequence = ProteinSequence(seq_str=sequence_str, msa=msa)
+        ligand = SMILigand(ligand_value=smiles_str)
+        input_builder = InputBuilder()
+        input_builder.set_name(job_name)
+        input_builder.add_sequence(sequence)
+        input_builder.add_ligand(ligand)
+        input_builder.set_version(2)
+        input_builder.set_seeds([1])
+        internal_input = input_builder.build()
+
+        # Write to file
+        internal_input.write(output_filename)
+```
+
+We can go ahead and generate the input JSONs:
+
+```bash
+python step3_generate_af3_inference_inputs.py
 ```
