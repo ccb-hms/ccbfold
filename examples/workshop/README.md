@@ -300,9 +300,16 @@ We submit our MSA just as before:
 
 ```bash
 sbatch step2_submit_msa_batch.sh
+#Submitted batch job <JOB_ID_HERE>
 ```
 
-Once the above completes we can then submit our inference as well. Save the following to `step3_submit_inference_batch.sh`:
+Let's store the job id for the MSA step so that we can require it completes prior to running inference:
+
+```bash
+MSA_JOB_ID=<JOB_ID_HERE>
+```
+
+We can then submit our inference job as well. Save the following to `step3_submit_inference_batch.sh`:
 
 ```bash
 #!/bin/bash
@@ -343,11 +350,10 @@ Note the following changes:
 - we save our final results to `af3_inference_outputs`
 - we don't request much CPU or RAM, as inference is mostly GPU-bound
 
-We can submit our jobs as we always do. We can also add a dependency requiring that our previous job (the MSA) finished first:
+We can submit our jobs as we always do. We also add a dependency requiring that our previous job (the MSA) completes first:
 
 ```bash
-# TODO: add dependency
-sbatch step3_submit_inference_batch.sh
+sbatch --dependency=afterok:$MSA_JOB_ID step3_submit_inference_batch.sh
 ```
 
 
