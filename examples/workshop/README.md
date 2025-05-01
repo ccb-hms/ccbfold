@@ -254,11 +254,15 @@ cp -R ../02_batch_of_jobs/af3_inputs .
 ```
 
 Our initial submission script is also identical except for the following:
-- added `--norun_data_pipeline` flag so that AlphaFold3 only runs MSA
-- save our MSA results to `af3_msa_outputs`
-- we change our partition and remove our request for a GPU
+- adds `--norun_data_pipeline` flag so that AlphaFold3 only runs MSA
+- we save the MSA results to `af3_msa_outputs`
+- we no longer need a GPU so we use the `short` partition and remove the `--gres` flag
 
- Save the following to `step2_submit_msa_batch.sh`:
+```bash
+nano step2_submit_msa_batch.sh
+```
+
+ Save the following to our sbatch script:
 
 ```bash
 #!/bin/bash
@@ -267,7 +271,6 @@ Our initial submission script is also identical except for the following:
 #SBATCH --partition=short        # Partition to run in
 #SBATCH -o logs/af3_msa_job_%A_%a.out       # STDOUT file
 #SBATCH -e logs/af3_msa_job_%A_%a.err       # STDERR file
-#SBATCH --gres=gpu:l40s:1        # GPU requested
 #SBATCH -t 0-01:00               # Runtime in D-HH:MM
 #SBATCH --array=0-9              # Job array indices (for 10 .json files)
 
