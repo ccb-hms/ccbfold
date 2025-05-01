@@ -431,13 +431,13 @@ We then submit the job as usual:
 
 ```bash
 sbatch step2_submit_colabfold_msa.sh
-# Submitted batch job 66837977
+# Submitted batch job <JOB_ID_HERE>
 ```
 
 We pay attention to the job id for the submission as we will use it for a dependency for the inference step:
 
 ```bash
-MSA_JOB_ID=66837977
+MSA_JOB_ID=<JOB_ID_HERE>
 ```
 
 Now we setup our AlphaFold3 input files so that they can use the MSAs from `mmseqs2`:
@@ -534,7 +534,7 @@ run_alphafold.py \
    --output_dir="$OUTPUT_DIR"
 ```
 
-We can submit this job, with the requirement that the MSA completes first:
+We can submit this job, with the requirement that the MSA job completes first:
 
 ```bash
 sbatch --dependency=afterok:$MSA_JOB_ID step4_submit_af3_inference_batch.sh
