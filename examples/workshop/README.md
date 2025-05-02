@@ -1,13 +1,15 @@
 ---
 title: "AlphaFold3 Workshop"
 ---
-# AlphaFold3 Workshop
+# AlphaFold3 on O2 Workshop
 
-AlphaFold3 is blah blah blah and way better than AlphaFold2 because of blah blah blah
+Welcome to the AlphaFold3 Workshop!
+
+AlphaFold3 significantly advances protein structure prediction beyond AlphaFold2, offering greater accuracy and broader capabilities.
 
 ### Setup
 
-We start by creating a reproducible python environment with all the necessary packages. To do so, we first install [uv](https://docs.astral.sh/uv/), an extremely fast Python project manager written in Rust. We then use `uv` to restore the virtual environment for `ccbfold`, a python package created for the development of the workshop:
+To begin, we'll set up a reproducible Python environment with all required packages. We’ll use [uv](https://docs.astral.sh/uv/), a fast Python project manager written in Rust, to restore the virtual environment for `ccbfold`—a custom Python package developed for this workshop.
 
 ```bash
 # install uv package manager
@@ -30,7 +32,10 @@ mkdir ../af3_workshop && cd $_
 
 ### Exercise 1: Hello Alphafold3
 
-Let's start off with a simple example to get started. This uses the amino acid sequence for a DNA binding protein and gene editing meganuclease as well as the associated DNA sequence. For this complex, the crystal structure has been experimentally determined using x-ray diffraction and deposited to [PDB entry 7RCE](https://www.rcsb.org/structure/7RCE). Let's create the input file that we will need for AlphaFold3:
+
+To get started, we'll use a simple example involving a DNA-binding protein and gene-editing meganuclease, along with its the DNA sequence that it binds to. A crystal structure for this complex is available in [PDB entry 7RCE](https://www.rcsb.org/structure/7RCE).
+
+First, create the necessary input file for AlphaFold3:
 
 ```bash
 mkdir 01_basic
@@ -42,7 +47,7 @@ nano pdb_7rce_input.json
 # to exit nano: Ctrl (Cmd on Mac) + x
 ```
 
-Save the following into the newly created `pdb_7rce_input.json`:
+Paste the following content into the file:
 
 ```json
 {
@@ -80,13 +85,13 @@ Save the following into the newly created `pdb_7rce_input.json`:
 ```
 
 
-We also need a sbatch script in order to submit our input to the Slurm workload manager on O2:
+Next, create a Slurm submission script to run AlphaFold3:
 
 ```bash
 nano pdb_7rce_submit.sh
 ```
 
-Paste and save the following:
+Paste in the following:
 
 ```bash
 #!/bin/bash
@@ -105,32 +110,30 @@ run_alphafold.py \
    --output_dir=pdb_7rce_output
 ```
 
-We are now ready to submit our first AlphaFold3 job to the cluster:
+Now you're ready to submit your first AlphaFold3 prediction job:
 
 ```bash
+# NOTE: may need to specify account, e.g.:
+# sbatch -A zaklab pdb_7rce_submit.sh
 sbatch pdb_7rce_submit.sh
 ```
 
 ### Exercise 2: Running a Batch of Jobs
 
-If we have a lot of structures that we want to predict, seting up the above manually can be quite tedious and error prone. To make it a lot easier, let's take advantage of the python package `af3cli` to generate our AlphaFold3 input JSON files programatically. The input sequences and ligands will be read in from the following TSV: 
+If you want to generate structures for many different protein-ligand pairs, setting up input files one at a time quickly becomes tedious. Instead, we can use a Python utility called `af3cli` to programmatically generate input JSONs.
+
+All of the sequences and corresponding small molecules are stored in a tab-separated file like this:
 
 |   Symbol   |   ProteinSequence                            |   Compound  |   SMILES                                        |
 |------------|----------------------------------------------|-------------|-------------------------------------------------|
 |   RREB1    | MTSSSPAGLEGSDLSSINTMMSAVMSVGKVTENGGSPQ... |   E1879     |   Cn1c(CNC=C(C#N)C(=O)Nc2ccccc2)cc(=O)n(C)c1=O  |
 |   SEPTIN5  | MSTGLRYKSKLATPEDKQDIDKQYVGFATLPNQVHRKSV... |   E2964     |   CN(C)c1nc(ncc1NC(=O)CCl)N2CCOCC2              |
 |   ATP6V1A  | MDFSKLPKILDEDKESTFGYVHGVSGPVVTACDMAGAAM... |   CL117     |   NC(=O)C=1C=CC=CC1NC(=O)CCl                    |
-|   ALDH1A2  | MTSSKIEMPGEVKADPAALMASLHLLPSPTPNLEIKYTKIF... |   CL102     |   COC=1C=CC=C(CN(C)C(=O)CCl)C1                  |
-|   ACAT1    | MAVLAALLRSGARSRSPLLRRLVQEIRYVERSYVSKPTLKE... |   E1387     |   FC(F)Sc1ccc(NC(=O)CCl)cc1                     |
-|   ACAT1    | MAVLAALLRSGARSRSPLLRRLVQEIRYVERSYVSKPTLKE... |   E2992     |   FC(F)(F)CC(=O)N1CCN(CC1)C(=O)CCl              |
-|   ACAT1    | MAVLAALLRSGARSRSPLLRRLVQEIRYVERSYVSKPTLKE... |   CL56      |   CC(=O)NC=1C=CC(NC(=O)CCl)=CC1                 |
-|   ACAT1    | MAVLAALLRSGARSRSPLLRRLVQEIRYVERSYVSKPTLKE... |   E1384     |   CSc1cccc(NC(=O)CCl)c1                         |
-|   ACAT1    | MAVLAALLRSGARSRSPLLRRLVQEIRYVERSYVSKPTLKE... |   E1383     |   FC(F)Oc1ccc(NC(=O)CCl)cc1                     |
-|   ATP6V1A  | MDFSKLPKILDEDKESTFGYVHGVSGPVVTACDMAGAAM... |   E2912     |   Fc1ccc2N(C(=O)CCl)C3(CCC3)C(=O)Nc2c1          |
+|   ...  | ... |   ...     |   ...                  |
 
-We want to predit the structure of each `ProteinSequence` with the associated small molecule compound, whose chemical formula is provided as a `SMILES` string. 
+Our job is to predict the structure of each protein sequence in complex with its associated small molecule, using the provided SMILES string as the ligand.
 
-Let's start by setting up a directory for this exercise and creating our `af3cli` script:
+Start by setting up a directory and writing the script that converts the above TSV into AlphaFold3-compatible inputs:
 
 ```bash
 # go up one directory if still in 01_basic/
@@ -140,7 +143,7 @@ cd 02_batch_of_jobs
 nano step1_generate_af3_inputs.py
 ```
 
-paste the following into this file:
+Paste the following script:
 
 ```python
 import csv
@@ -182,27 +185,28 @@ with open(INPUT_FILE, newline='', encoding='utf-8') as f:
 
 ```
 
-Before we can run the above, we first need to download the data. Since the data will also be used for the next exercise, lets put it somewhere less specific:
+Before running this script, download the input dataset:
 
 ```bash
 mkdir ../data
 curl -L -o ../data/preliminaryTests.tsv "https://raw.githubusercontent.com/ccb-hms/ccbfold/refs/heads/main/examples/workshop/data/preliminaryTests.tsv"
 ```
 
-We can now generate our 10 AlphaFold3 inputs:
+Now generate the input JSON files:
 
 ```python
 # will save .json files to af3_inputs/
 python step1_generate_af3_inputs.py
 ```
 
-To submit our inputs, we can use a single sbatch script with the `#SBATCH --array=0-9` declaration:
+To submit all of the jobs to the cluster at once, we’ll take advantage of Slurm’s job arrays:
+
 
 ```bash
 nano step2_submit_batch.sh
 ```
 
-Save the following to this file:
+Paste the following script:
 
 ```bash
 #!/bin/bash
@@ -234,7 +238,7 @@ run_alphafold.py \
    --output_dir="$OUTPUT_DIR"
 ```
 
-We submit our sbatch script to the Slurm scheduler just as before:
+And submit the batch job array like so:
 
 ```bash
 sbatch step2_submit_batch.sh
@@ -242,7 +246,9 @@ sbatch step2_submit_batch.sh
 
 ### Exercise 3: Separate MSA and Inference
 
-For a typical AlphaFold3 run, the multiple sequence alignment (MSA) accounts for the vast majority of the total run-time (~5/6th of total). The MSA step is performed using `jackhmmer`, which runs entirely using CPU. As a result, we can save substantial GPU time by running MSA and inference as separate steps. To setup, we use the same starting input files as for exercise 2:
+When running AlphaFold3, the majority of execution time — often more than 80% — is spent creating the multiple sequence alignment (MSA), a step that only uses CPUs. To better utilize GPU resources, we can split the run into two phases: first run MSA, and then run inference separately.
+
+Set up the directory and copy over inputs from the previous exercise:
 
 ```bash
 cd ..
@@ -253,16 +259,13 @@ cd 03_separate_msa
 cp -R ../02_batch_of_jobs/af3_inputs .
 ```
 
-Our initial submission script is also identical except for the following:
-- adds `--norun_data_pipeline` flag so that AlphaFold3 only runs MSA
-- we save the MSA results to `af3_msa_outputs`
-- we no longer need a GPU so we use the `short` partition and remove the `--gres` flag
+Create a Slurm script to run only the MSA step:
 
 ```bash
 nano step2_submit_msa_batch.sh
 ```
 
- Save the following to our sbatch script:
+Save the following:
 
 ```bash
 #!/bin/bash
@@ -281,35 +284,43 @@ INPUT_DIR="af3_inputs"
 INPUT_FILES=(${INPUT_DIR}/*.json)
 INPUT_FILE=${INPUT_FILES[$SLURM_ARRAY_TASK_ID]}
 
-# Derive job name and output directory from file name
-JOB_NAME=$(basename "$INPUT_FILE" .json)
-OUTPUT_DIR="af3_msa_outputs"
-JOB_OUTPUT_DIR="${OUTPUT_DIR}/${JOB_NAME}"
 
 # Make sure output directory exists
+OUTPUT_DIR="af3_msa_outputs"
 mkdir -p "$OUTPUT_DIR"
 
 # Run AlphaFold3 MSA only
 run_alphafold.py \
    --json_path="$INPUT_FILE" \
-   --output_dir="$JOB_OUTPUT_DIR" \
+   --output_dir="$OUTPUT_DIR" \
    --norun_inference
 ```
 
-We submit our MSA just as before:
+Note that the submission script has the following changes:
+- adds `--norun_data_pipeline` flag so that AlphaFold3 only runs MSA
+- we save the MSA results to `af3_msa_outputs`
+- we no longer need a GPU so we use the `short` partition and remove the `--gres` flag
+
+Go ahead and submit your MSA job:
 
 ```bash
 sbatch step2_submit_msa_batch.sh
 #Submitted batch job <JOB_ID_HERE>
 ```
 
-Let's store the job id for the MSA step so that we can require it completes prior to running inference:
+Let's save the job ID from the MSA step so we can make the inference step wait until it has successfully completed:
 
 ```bash
 MSA_JOB_ID=<JOB_ID_HERE>
 ```
 
-We can then submit our inference job as well. Save the following to `step3_submit_inference_batch.sh`:
+Now for the inference step, we need another batch script that picks up where the MSA step left off:
+
+```bash
+nano step3_submit_inference_batch.sh
+```
+
+Paste this:
 
 ```bash
 #!/bin/bash
@@ -350,16 +361,17 @@ Note the following changes:
 - we save our final results to `af3_inference_outputs`
 - we don't request much CPU or RAM, as inference is mostly GPU-bound
 
-We can submit our jobs as we always do. We also add a dependency requiring that our previous job (the MSA) completes first:
+You can now submit the inference step, making sure to run it only after the MSA jobs complete:
 
 ```bash
 sbatch --dependency=afterok:$MSA_JOB_ID step3_submit_inference_batch.sh
 ```
 
-
 ### Exercise 4: Perform MSA with GPU mmseqs2
 
-While splitting the MSA and Inference steps (Exercise 3) is useful for reducing idle GPU time, it doesn't increase the number of structures we can predict per unit time. In order to do so, we can instead turn to alternative MSA approaches, which can greatly increase throughput, given that the MSA represents ~ 5/6th of the total time spent by AlphaFold3. In particular, `mmseqs2` provides a robust GPU implementation that can generate MSAs for a batch of amino acid sequences that can speed up the MSA step by ~ 10x. To use `mmseqs2`, we first generate a `.fasta` file with all our amino acid sequences:
+Previously, we split MSA and inference execution to reduce wasted GPU time. In this exercise, we’ll take it a step further and use `mmseqs2`, which includes GPU acceleration for MSA generation, allowing throughput improvements of ~10x as compared to `jackhmmer`.
+
+We’ll start by generating a `.fasta` file with all protein sequences:
 
 ```bash
 cd ..
@@ -368,7 +380,7 @@ cd 04_mmseqs2_msa
 nano step1_generate_colabfold_msa_input.py
 ```
 
-Paste the following python script into this file and save:
+Paste the following python script into this file and save it:
 
 ```python
 import csv
@@ -392,19 +404,19 @@ with open(INPUT_FILE, 'r') as input_tsv, open(OUTPUT_FILE, 'w') as output_fasta:
 
 ```
 
-We next execute the above script to generate our `.fasta` file:
+Run it to create the `preliminaryTests.fasta` file:
 
 ```bash
 python step1_generate_colabfold_msa_input.py
 ```
 
-To actually run the MSAs, we create a sbatch script that uses `mmseqs2` with our input `.fasta`:
+Now create the submission script to run `mmseqs2` on GPU:
 
 ```bash
 nano step2_submit_colabfold_msa.sh
 ```
 
-Paste the following into this file:
+Paste this:
 
 ```bash
 #!/bin/bash
@@ -433,26 +445,23 @@ colabfold_search \
    $OUTPUT_DIR
 ```
 
-We then submit the job as usual:
+Submit the job:
 
 ```bash
 sbatch step2_submit_colabfold_msa.sh
 # Submitted batch job <JOB_ID_HERE>
-```
 
-We pay attention to the job id for the submission as we will use it for a dependency for the inference step:
-
-```bash
+# save job id for later
 MSA_JOB_ID=<JOB_ID_HERE>
 ```
 
-Now we setup our AlphaFold3 input files so that they can use the MSAs from `mmseqs2`:
+Then, generate AlphaFold3 input files using the MSAs from `mmseqs2`:
 
 ```bash
 nano step3_generate_af3_inference_inputs.py
 ```
 
-Paste the following into this file:
+Paste and save:
 
 ```python
 import csv
@@ -496,19 +505,19 @@ with open(INPUT_FILE, newline='', encoding='utf-8') as f:
         internal_input.write(output_filename)
 ```
 
-We can go ahead and generate the input JSONs:
+Run the script to generate the input JSONs:
 
 ```bash
 python step3_generate_af3_inference_inputs.py
 ```
 
-Let also setup our script to submit the inference jobs:
+Now prepare the batch inference submission script:
 
 ```bash
 nano step4_submit_af3_inference_batch.sh
 ```
 
-Paste the following into this file:
+Paste the following:
 
 ```bash
 #!/bin/bash
@@ -540,8 +549,19 @@ run_alphafold.py \
    --output_dir="$OUTPUT_DIR"
 ```
 
-We can submit this job, with the requirement that the MSA job completes first:
+Again, we submit ensuring the MSA step finishes first:
 
 ```bash
 sbatch --dependency=afterok:$MSA_JOB_ID step4_submit_af3_inference_batch.sh
 ```
+
+---
+
+You're now equipped with a variety of workflows for running AlphaFold3:
+
+- A single end-to-end prediction of a protein-DNA complex
+- Automatically generating inputs and running batch predictions
+- Separately running MSA and inference to optimize compute usage
+- Accelerating MSA using GPU-based mmseqs2
+
+Feel free to extend these approaches to your own data and explore more complex modeling tasks. Happy folding!
