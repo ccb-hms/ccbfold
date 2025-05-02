@@ -368,7 +368,7 @@ You can now submit the inference step, making sure to run it only after the MSA 
 sbatch --dependency=afterok:$MSA_JOB_ID step3_submit_inference_batch.sh
 ```
 
-### Exercise 4: Perform MSA with GPU mmseqs2
+### Exercise 4: Run MSAs on GPU with mmseqs2
 
 Previously, we split MSA and inference execution to reduce wasted GPU time. In this exercise, we’ll take it a step further and use `mmseqs2`, which includes GPU acceleration for MSA generation, allowing throughput improvements of ~10x as compared to `jackhmmer`.
 
@@ -566,3 +566,13 @@ You're now equipped with a variety of workflows for running AlphaFold3:
 - Accelerating MSA using GPU-based mmseqs2
 
 Feel free to extend these approaches to your own data and explore more complex modeling tasks. Happy folding!
+
+```mermaid
+flowchart TD
+    A[Start: Do you need to predict structures?] --> B{How many structures?}
+    B --> C:::reqs@{shape: "rect", label: "#8226; 30 or fewer per day<br/>#8226; <5000 tokens per &nbsp;&nbsp;&nbsp;structure<br/>#8226; biologically common &nbsp;&nbsp;&nbsp;ligands / PTMs"} --> D[Use AlphaFold Server]
+    B --> E:::reqs@{shape: "rect", label: "#8226; A handful<br/>#8226; not matching server &nbsp;&nbsp;&nbsp;criteria"} --> F[Use O2 AlphaFold3 module<br/>without modification]
+    B --> G:::reqs@{shape: "st-rect", label: "#8226; More than a handful<br/>#8226; exact AlphaFold3 spec &nbsp;&nbsp;&nbsp;desired"} --> H[Split MSA and Inference<br/>Run MSAs on CPU-only node]
+    B --> I:::reqs@{shape: "st-rect", label: "#8226; Many structures<br/>#8226; high throughput desired"} --> J[Run MSAs with mmseqs2<br/>then use AlphaFold3 module for inference]
+    classDef reqs fill:#f96,text-align: left;
+```
