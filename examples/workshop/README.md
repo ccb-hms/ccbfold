@@ -27,7 +27,8 @@ uv sync
 source .venv/bin/activate
 
 # create and move to directory for workshop
-mkdir ../af3_workshop && cd $_
+mkdir ../af3_workshop
+cd ../af3_workshop
 ```
 
 ### Exercise 1: Hello Alphafold3
