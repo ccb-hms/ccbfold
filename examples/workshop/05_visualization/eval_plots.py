@@ -1,4 +1,5 @@
 import json
+from collections import Counter
 from pathlib import Path
 
 import matplotlib.patches as patches
@@ -60,7 +61,10 @@ def plot_plddt(atom_plddts: list[int], atom_chain_ids: list[str]) -> None:
     plt.title(f'Predicted Local Distance Difference Test (pLDDT)', fontsize=14)
     plt.grid(alpha=0.5)
 
+    ## as a scatter plot with each atom as a dot
     plt.plot(atom_plddts, color='black', marker='.', markersize=1, linewidth=0)
+    ## as a line plot instead of scatter
+    #plt.plot(atom_plddts, color='black', linewidth=1)
 
     plt.legend(
         title='Confidence Level', fontsize='small', bbox_to_anchor=(1.01, 1.0),
@@ -69,52 +73,25 @@ def plot_plddt(atom_plddts: list[int], atom_chain_ids: list[str]) -> None:
     plt.tight_layout()
 
 
-def plot_pae(pae: list[int], token_chain_ids: list[str]) -> None:
-    ''' Plot pLDDT data '''
+def plot_pae(pae: list[int], token_chain_ids: list[str], show_chains= True) -> None:
+    ''' Plot pae data '''
 
     plt.figure(figsize=(8, 8))
     plt.title(f'Predicted Aligned Error (PAE)', fontsize=14)
     plt.xlabel('Scored Residue', fontsize=12)
     plt.ylabel('Aligned Residue', fontsize=12)
 
-    plt.imshow(np.array(pae), cmap='cividis', origin='lower')
-
-    if len(chains := Counter(token_chain_ids)) > 1:
-        xy = 0
-        for v in list(chains.values())[:-1]:
-            plt.axvline(x=(xy := xy+v), color='white', linestyle='--')
-            plt.axhline(y=xy, color='white', linestyle='--')
+    plt.imshow(np.array(pae), cmap='Greens_r')
+    
+    if show_chains:
+        if len(chains := Counter(token_chain_ids)) > 1:
+            xy = 0
+            for v in list(chains.values())[:-1]:
+                plt.axvline(x=(xy := xy+v), color='white', linestyle='--')
+                plt.axhline(y=xy, color='white', linestyle='--')
 
     plt.colorbar(
         label='Expected Position Error (Ångströms)', orientation='horizontal',
         shrink=0.75, pad=0.075
     )
     plt.tight_layout()
-
-
-def process_json(target: Path, plot_pae=True, plot_plddt=True) -> None:
-    ''' Scrape and plot pLDDT and PAE information from AlphaFold3 JSONs '''
-
-    with open(target) as F:
-        data = json.load(F)
-    # skip `_summary_confidences.json` files
-    if 'atom_chain_ids' not in data.keys():
-        return
-    # pLDDT
-    if plot_plddt:
-        plot_plddt(data['atom_plddts'], data['atom_chain_ids'])
-        plt.savefig(
-            target.parent.joinpath(
-                target.stem.rstrip(args.glob.replace('*', '')) + 'pLDDT.png'
-            )
-        )
-        plt.close()
-    # PAE
-    if plot_pae:
-        plot_pae(data['pae'], data['token_chain_ids'])
-        plt.savefig(
-            target.parent.joinpath(
-                target.stem.rstrip(args.glob.replace('*', '')) + 'PAE.png'
-            )
-        )
-        plt.close()

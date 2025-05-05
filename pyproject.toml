@@ -11,6 +11,9 @@ dependencies = [
     "af3cli>=0.4.1",
     "biopython>=1.85",
     "click>=8.1.8",
+    "ipykernel>=6.29.5",
+    "ipymolstar>=0.1.0",
+    "jupyter>=1.1.1",
     "matplotlib>=3.10.1",
     "numpy>=2.2.5",
 ]
