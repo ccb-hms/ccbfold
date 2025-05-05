@@ -569,7 +569,7 @@ Feel free to extend these approaches to your own data and explore more complex m
 
 ```mermaid
 flowchart TD
-    A:::start@{label: "Start: Do you need to predict structures?"} --> B:::start@{shape: "diamond", label: "How many structures?"}
+    A:::start@{label: "Start: Do you need to predict structures?"} --> B@{shape: "diamond", label: "How many structures?"}
     B --> C:::reqs@{shape: "rect", label: "#8226; 30 or fewer per day<br/>#8226; <5000 tokens per &nbsp;&nbsp;&nbsp;structure<br/>#8226; biologically common &nbsp;&nbsp;&nbsp;ligands / PTMs"} --> D:::server@{shape: "rect", label: "Use AlphaFold Server"}
     B --> E:::reqs@{shape: "rect", label: "#8226; A handful<br/>#8226; not matching server &nbsp;&nbsp;&nbsp;criteria"} --> F:::o2@{shape: "rect", label: "Use O2 AlphaFold3 module<br/>without modification"}
     B --> G:::reqs@{shape: "st-rect", label: "#8226; More than a handful<br/>#8226; exact AlphaFold3 spec &nbsp;&nbsp;&nbsp;desired"} --> H:::splitMsa@{shape: "rect", label: "Split MSA and Inference<br/>Run MSAs on CPU-only node"}
