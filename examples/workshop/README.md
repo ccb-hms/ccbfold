@@ -569,10 +569,15 @@ Feel free to extend these approaches to your own data and explore more complex m
 
 ```mermaid
 flowchart TD
-    A[Start: Do you need to predict structures?] --> B{How many structures?}
-    B --> C:::reqs@{shape: "rect", label: "#8226; 30 or fewer per day<br/>#8226; <5000 tokens per &nbsp;&nbsp;&nbsp;structure<br/>#8226; biologically common &nbsp;&nbsp;&nbsp;ligands / PTMs"} --> D[Use AlphaFold Server]
-    B --> E:::reqs@{shape: "rect", label: "#8226; A handful<br/>#8226; not matching server &nbsp;&nbsp;&nbsp;criteria"} --> F[Use O2 AlphaFold3 module<br/>without modification]
-    B --> G:::reqs@{shape: "st-rect", label: "#8226; More than a handful<br/>#8226; exact AlphaFold3 spec &nbsp;&nbsp;&nbsp;desired"} --> H[Split MSA and Inference<br/>Run MSAs on CPU-only node]
-    B --> I:::reqs@{shape: "st-rect", label: "#8226; Many structures<br/>#8226; high throughput desired"} --> J[Run MSAs with mmseqs2<br/>then use AlphaFold3 module for inference]
-    classDef reqs fill:#f96,text-align: left;
+    A:::start@{label: "Start: Do you need to predict structures?"} --> B:::start@{shape: "diamond", label: "How many structures?"}
+    B --> C:::reqs@{shape: "rect", label: "#8226; 30 or fewer per day<br/>#8226; <5000 tokens per &nbsp;&nbsp;&nbsp;structure<br/>#8226; biologically common &nbsp;&nbsp;&nbsp;ligands / PTMs"} --> D:::server@{shape: "rect", label: "Use AlphaFold Server"}
+    B --> E:::reqs@{shape: "rect", label: "#8226; A handful<br/>#8226; not matching server &nbsp;&nbsp;&nbsp;criteria"} --> F:::o2@{shape: "rect", label: "Use O2 AlphaFold3 module<br/>without modification"}
+    B --> G:::reqs@{shape: "st-rect", label: "#8226; More than a handful<br/>#8226; exact AlphaFold3 spec &nbsp;&nbsp;&nbsp;desired"} --> H:::splitMsa@{shape: "rect", label: "Split MSA and Inference<br/>Run MSAs on CPU-only node"}
+    B --> I:::reqs@{shape: "st-rect", label: "#8226; Many structures<br/>#8226; high throughput desired"} --> J:::mmseqs2@{shape: "rect", label: "Run MSAs with mmseqs2<br/>then use AlphaFold3 module for inference"}
+    classDef reqs fill:#fff,stroke:#C9C9C9,text-align:left;
+    classDef server fill:#DAE8FC,stroke:#6C8EBF;
+    classDef o2 fill:#F8CECC,stroke:#B85450;
+    classDef splitMsa fill:#FFF2CC,stroke:#D6B656;
+    classDef mmseqs2 fill:#E1D5E7,stroke:#9673A6;
+    classDef start fill: #fff, stroke:#C9C9C9; 
 ```
