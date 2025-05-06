@@ -15,6 +15,8 @@ dependencies = [
     "ipymolstar>=0.1.0",
     "jupyter>=1.1.1",
     "matplotlib>=3.10.1",
+    "molviewspec>=1.4.0",
+    "nglview>=3.1.4",
     "numpy>=2.2.5",
 ]
 
