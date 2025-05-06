@@ -46,6 +46,8 @@ nano pdb_7rce_input.json
 # to paste: Ctrl (Cmd on Mac) + Shift + v
 # to save: Ctrl (Cmd on Mac) + o then Enter
 # to exit nano: Ctrl (Cmd on Mac) + x
+#
+# to check file contents: cat pdb_7rce_input.json
 ```
 
 Paste the following content into the file:
@@ -171,9 +173,9 @@ with open(INPUT_FILE, newline='', encoding='utf-8') as f:
         filename = OUTPUT_DIR / f"{job_name}.json"
 
         # Build AF3 input
+        input_builder = InputBuilder()
         sequence = ProteinSequence(seq_str=sequence_str)
         ligand = SMILigand(ligand_value=smiles_str)
-        input_builder = InputBuilder()
         input_builder.set_name(job_name)
         input_builder.add_sequence(sequence)
         input_builder.add_ligand(ligand)
@@ -227,11 +229,8 @@ INPUT_DIR="af3_inputs"
 INPUT_FILES=(${INPUT_DIR}/*.json)
 INPUT_FILE=${INPUT_FILES[$SLURM_ARRAY_TASK_ID]}
 
-# Derive job name and output directory from file name
-JOB_NAME=$(basename "$INPUT_FILE" .json)
-OUTPUT_DIR="af3_outputs"
-
 # Make sure output directory exists
+OUTPUT_DIR="af3_outputs"
 mkdir -p "$OUTPUT_DIR"
 
 run_alphafold.py \
