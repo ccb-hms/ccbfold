@@ -297,7 +297,7 @@ run_alphafold.py \
 ```
 
 Note that the submission script has the following changes:
-- adds `--norun_data_pipeline` flag so that AlphaFold3 only runs MSA
+- adds `--norun_inference` flag so that AlphaFold3 only runs MSA
 - we save the MSA results to `af3_msa_outputs`
 - we no longer need a GPU so we use the `short` partition and remove the `--gres` flag
 
@@ -341,17 +341,14 @@ JOB_NAMES=($(ls "${INPUT_DIR}"))
 JOB_NAME=${JOB_NAMES[$SLURM_ARRAY_TASK_ID]}
 INPUT_FILE="${INPUT_DIR}/${JOB_NAME}/${JOB_NAME}_data.json"
 
-# Derive job name and output directory from file name
-OUTPUT_DIR="af3_inference_outputs"
-JOB_OUTPUT_DIR="${OUTPUT_DIR}/${JOB_NAME}"
-
 # Make sure output directory exists
+OUTPUT_DIR="af3_inference_outputs"
 mkdir -p "$OUTPUT_DIR"
 
 # Run AlphaFold3 Inference only
 run_alphafold.py \
    --json_path="$INPUT_FILE" \
-   --output_dir="$JOB_OUTPUT_DIR" \
+   --output_dir="$OUTPUT_DIR" \
    --norun_data_pipeline
 ```
 
@@ -426,7 +423,7 @@ Paste this:
 #SBATCH -o logs/colabfold_msa_job_%A_%a.out       # STDOUT file
 #SBATCH -e logs/colabfold_msa_job_%A_%a.err       # STDERR file
 #SBATCH --gres=gpu:l40s:1        # GPU requested
-#SBATCH -t 0-01:00               # Runtime in D-HH:MM
+#SBATCH -t 0-03:00               # Runtime in D-HH:MM
 
 module use /n/shared_db/tmp/module
 module load colabfold
@@ -487,13 +484,16 @@ with open(INPUT_FILE, newline='', encoding='utf-8') as f:
         # Construct job name and output filename
         job_name = f"{symbol}_{compound}"
         output_filename = OUTPUT_DIR / f"{job_name}.json"
-        msa_filename = MSA_INPUT_DIR / f"{job_name}.a3m"
+
+        # relative to JSON input
+        msa_filename = ".." / MSA_INPUT_DIR / f"{job_name}.a3m"
+
 
         # Build AF3 input with MSA from colabfold
+        input_builder = InputBuilder()
         msa = MSA(unpaired=str(msa_filename), unpaired_is_path=True)
         sequence = ProteinSequence(seq_str=sequence_str, msa=msa)
         ligand = SMILigand(ligand_value=smiles_str)
-        input_builder = InputBuilder()
         input_builder.set_name(job_name)
         input_builder.add_sequence(sequence)
         input_builder.add_ligand(ligand)

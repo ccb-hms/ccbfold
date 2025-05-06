@@ -5,7 +5,7 @@
 #SBATCH -o logs/colabfold_msa_job_%A_%a.out       # STDOUT file
 #SBATCH -e logs/colabfold_msa_job_%A_%a.err       # STDERR file
 #SBATCH --gres=gpu:l40s:1        # GPU requested
-#SBATCH -t 0-01:00               # Runtime in D-HH:MM
+#SBATCH -t 0-04:00               # Runtime in D-HH:MM
 
 module use /n/shared_db/tmp/module
 module load colabfold

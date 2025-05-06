@@ -21,13 +21,15 @@ with open(INPUT_FILE, newline='', encoding='utf-8') as f:
         # Construct job name and output filename
         job_name = f"{symbol}_{compound}"
         output_filename = OUTPUT_DIR / f"{job_name}.json"
-        msa_filename = MSA_INPUT_DIR / f"{job_name}.a3m"
+
+        # relative to JSON input
+        msa_filename = ".." / MSA_INPUT_DIR / f"{job_name}.a3m"
 
         # Build AF3 input with MSA from colabfold
+        input_builder = InputBuilder()
         msa = MSA(unpaired=str(msa_filename), unpaired_is_path=True)
         sequence = ProteinSequence(seq_str=sequence_str, msa=msa)
         ligand = SMILigand(ligand_value=smiles_str)
-        input_builder = InputBuilder()
         input_builder.set_name(job_name)
         input_builder.add_sequence(sequence)
         input_builder.add_ligand(ligand)

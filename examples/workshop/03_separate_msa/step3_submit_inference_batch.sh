@@ -16,10 +16,8 @@ JOB_NAMES=($(ls "${INPUT_DIR}"))
 JOB_NAME=${JOB_NAMES[$SLURM_ARRAY_TASK_ID]}
 INPUT_FILE="${INPUT_DIR}/${JOB_NAME}/${JOB_NAME}_data.json"
 
-# Derive job name and output directory from file name
-OUTPUT_DIR="af3_inference_outputs"
-
 # Make sure output directory exists
+OUTPUT_DIR="af3_inference_outputs"
 mkdir -p "$OUTPUT_DIR"
 
 # Run AlphaFold3 Inference only
