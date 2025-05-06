@@ -42,7 +42,9 @@ First, create the necessary input file for AlphaFold3:
 mkdir 01_basic
 cd 01_basic
 nano pdb_7rce_input.json
+```
 
+```bash
 # to paste: Ctrl (Cmd on Mac) + Shift + v
 # to save: Ctrl (Cmd on Mac) + o then Enter
 # to exit nano: Ctrl (Cmd on Mac) + x
@@ -123,7 +125,7 @@ sbatch pdb_7rce_submit.sh
 
 ### Exercise 2: Running a Batch of Jobs
 
-If you want to generate structures for many different protein-ligand pairs, setting up input files one at a time quickly becomes tedious. Instead, we can use a Python utility called `af3cli` to programmatically generate input JSONs.
+If you want to generate structures for many different protein-ligand pairs, setting up input files one at a time quickly becomes tedious. Instead, we can use a Python utility called [af3cli](https://github.com/SLx64/af3cli) to programmatically generate input JSONs.
 
 All of the sequences and corresponding small molecules are stored in a tab-separated file like this:
 
