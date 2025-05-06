@@ -4,7 +4,6 @@
 #SBATCH --partition=short        # Partition to run in
 #SBATCH -o logs/af3_msa_job_%A_%a.out       # STDOUT file
 #SBATCH -e logs/af3_msa_job_%A_%a.err       # STDERR file
-#SBATCH --gres=gpu:l40s:1        # GPU requested
 #SBATCH -t 0-01:00               # Runtime in D-HH:MM
 #SBATCH --array=0-9              # Job array indices (for 10 .json files)
 
@@ -15,11 +14,8 @@ INPUT_DIR="af3_inputs"
 INPUT_FILES=(${INPUT_DIR}/*.json)
 INPUT_FILE=${INPUT_FILES[$SLURM_ARRAY_TASK_ID]}
 
-# Derive job name and output directory from file name
-JOB_NAME=$(basename "$INPUT_FILE" .json)
-OUTPUT_DIR="af3_msa_outputs"
-
 # Make sure output directory exists
+OUTPUT_DIR="af3_msa_outputs"
 mkdir -p "$OUTPUT_DIR"
 
 # Run AlphaFold3 MSA only
