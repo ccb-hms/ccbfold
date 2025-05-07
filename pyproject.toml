@@ -3,6 +3,8 @@ name = "ccbfold"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
+license  = "CC BY-NC-SA 4.0"
+license-files =  ["LICENSE"]
 authors = [
     { name = "Tyrone Lee", email = "tyrone.lee@hms.harvard.edu" },
     { name = "Alex Pickering", email = "alexvpickering@gmail.com" }
