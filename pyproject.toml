@@ -4,13 +4,18 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 authors = [
+    { name = "Tyrone Lee", email = "tyrone.lee@hms.harvard.edu" },
     { name = "Alex Pickering", email = "alexvpickering@gmail.com" }
 ]
 requires-python = ">=3.12"
 dependencies = [
     "af3cli>=0.4.1",
-    "biopython>=1.85",
+    "biopython>=1.84",
     "click>=8.1.8",
+]
+
+[project.optional-dependencies]
+visualization = [
     "ipykernel>=6.29.5",
     "ipymolstar>=0.1.0",
     "jupyter>=1.1.1",
