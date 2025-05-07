@@ -15,3 +15,18 @@ These scripts have been tested to be capeable of running on the cluster.
     - Python >=3.12
     - [uv](https://docs.astral.sh/uv/)
     - [juv](https://github.com/manzt/juv)
+
+## Install
+
+```bash
+uv sync
+#for exercise05 visualization
+uv sync --extra visualization
+uv pip install -e .
+source .venv/bin/activate
+```
+
+# OR if omitting uv
+```bash
+python3 pip install -e .
+```
