@@ -203,6 +203,10 @@ dependencies = [
     { name = "af3cli" },
     { name = "biopython" },
     { name = "click" },
+]
+
+[package.optional-dependencies]
+visualization = [
     { name = "ipykernel" },
     { name = "ipymolstar" },
     { name = "jupyter" },
@@ -217,13 +221,13 @@ requires-dist = [
     { name = "af3cli", specifier = ">=0.4.1" },
     { name = "biopython", specifier = ">=1.85" },
     { name = "click", specifier = ">=8.1.8" },
-    { name = "ipykernel", specifier = ">=6.29.5" },
-    { name = "ipymolstar", specifier = ">=0.1.0" },
-    { name = "jupyter", specifier = ">=1.1.1" },
-    { name = "matplotlib", specifier = ">=3.10.1" },
-    { name = "molviewspec", specifier = ">=1.4.0" },
-    { name = "nglview", specifier = ">=3.1.4" },
-    { name = "numpy", specifier = ">=2.2.5" },
+    { name = "ipykernel", marker = "extra == 'visualization'", specifier = ">=6.29.5" },
+    { name = "ipymolstar", marker = "extra == 'visualization'", specifier = ">=0.1.0" },
+    { name = "jupyter", marker = "extra == 'visualization'", specifier = ">=1.1.1" },
+    { name = "matplotlib", marker = "extra == 'visualization'", specifier = ">=3.10.1" },
+    { name = "molviewspec", marker = "extra == 'visualization'", specifier = ">=1.4.0" },
+    { name = "nglview", marker = "extra == 'visualization'", specifier = ">=3.1.4" },
+    { name = "numpy", marker = "extra == 'visualization'", specifier = ">=2.2.5" },
 ]
 
 [[package]]

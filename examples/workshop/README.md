@@ -559,7 +559,10 @@ Again, we submit ensuring the MSA step finishes first:
 sbatch --dependency=afterok:$MSA_JOB_ID step4_submit_af3_inference_batch.sh
 ```
 
-### Exercise 5: Reading, seeing, and understanding the results
+
+### Exercise 4: Perform MSA with GPU mmseqs2
+
+### Exercise 5: Visualizing Predictions and Interpreting Confidence Metrics
 
 At the end of the inference step, you should have the following files in the results folder.
 ```
