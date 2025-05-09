@@ -7,7 +7,7 @@ license  = "CC-BY-NC-SA-4.0"
 license-files =  ["LICENSE"]
 authors = [
     { name = "Tyrone Lee", email = "tyrone.lee@hms.harvard.edu" },
-    { name = "Alex Pickering", email = "alexvpickering@gmail.com" }
+    { name = "Alex Pickering", email = "alex_pickering@hms.harvard.edu" }
 ]
 requires-python = ">=3.12"
 dependencies = [
