@@ -123,6 +123,8 @@ Now you're ready to submit your first AlphaFold3 prediction job:
 sbatch pdb_7rce_submit.sh
 ```
 
+The AlphaFold3 O2 module will run on `l40s`, `teslaV100s`, or `a100` GPUs. You do not need to set any flags or environmental variables as specified in the AlphaFold3 documentation.
+
 ### Exercise 2: Running a Batch of Jobs
 
 If you want to generate structures for many different protein-ligand pairs, setting up input files one at a time quickly becomes tedious. Instead, we can use a Python utility called [af3cli](https://github.com/SLx64/af3cli) to programmatically generate input JSONs.
