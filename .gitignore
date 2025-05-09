@@ -20,5 +20,5 @@ examples/workshop/05_visualization/.ipynb_checkpoints/
 
 # quarto/posit build files
 examples/workshop/Workshop_files/
-examples/workshop/Workshop.html/
+examples/workshop/Workshop.html
 examples/workshop/.posit/
