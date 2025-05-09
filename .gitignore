@@ -17,6 +17,8 @@ examples/workshop/data/PDB_files/
 
 examples/workshop/05_visualization/__pycache__/
 examples/workshop/05_visualization/.ipynb_checkpoints/
+
 # quarto/posit build files
-examples/workshop/README_files/
+examples/workshop/Workshop_files/
+examples/workshop/Workshop.html/
 examples/workshop/.posit/

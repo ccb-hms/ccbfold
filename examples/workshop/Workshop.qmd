@@ -2,10 +2,10 @@
 title: "AlphaFold3 on O2 Workshop"
 format: 
   html:
-    theme: cosmo
+    theme: default
     toc: true
-    toc-location: left
-    highlight-style: github
+    toc-location: right
+    highlight-style: arrow
 ---
 
 Welcome to the AlphaFold3 Workshop!
@@ -50,9 +50,9 @@ nano pdb_7rce_input.json
 ```
 
 ```bash
-# to paste: Ctrl (Cmd on Mac) + Shift + v
-# to save: Ctrl (Cmd on Mac) + o then Enter
-# to exit nano: Ctrl (Cmd on Mac) + x
+# to paste: Ctrl + Shift + v (Cmd + v on Mac)
+# to save: Ctrl + o then Enter
+# to exit nano: Ctrl + x
 #
 # to check file contents: cat pdb_7rce_input.json
 ```
@@ -123,10 +123,40 @@ run_alphafold.py \
 Now you're ready to submit your first AlphaFold3 prediction job:
 
 ```bash
-# NOTE: may need to specify account, e.g.:
-# sbatch -A zaklab pdb_7rce_submit.sh
 sbatch pdb_7rce_submit.sh
 ```
+
+
+::: {.callout-important title="Specifying Account"}
+If you have multiple billing accounts, you will to to specify one. For example: 
+
+```bash
+sbatch -A zaklab pdb_7rce_submit.sh
+```
+
+
+To check available accounts:
+
+```bash
+sacctmgr show associations user=$USER format=Account%35
+```
+:::
+
+
+::: {.callout-note collapse="false" title="Helpful Slurm Commands"}
+To check the status of current jobs:
+
+```bash
+squeue -u $USER
+```
+
+To cancel a job:
+
+```bash
+scancel <JOB_ID>
+```
+
+:::
 
 The AlphaFold3 O2 module will run on `l40s`, `teslaV100s`, or `a100` GPUs. You do not need to set any flags or environmental variables as specified in the AlphaFold3 documentation.
 
@@ -434,14 +464,13 @@ Paste this:
 #SBATCH --gres=gpu:l40s:1        # GPU requested
 #SBATCH -t 0-03:00               # Runtime in D-HH:MM
 
-module use /n/shared_db/tmp/module
-module load colabfold
-module load mmseqs2
+module load localcolabfold/406d4c6
+module load mmseqs2/17-b804f
 
 OUTPUT_DIR="colabfold_msa_outputs"
 
 # Shared database directory for colabfold MSAs
-DATABASE_DIR="/n/shared_db/tmp/colabfold"
+DATABASE_DIR="/n/shared_db/colabfold/406d4c6/"
 
 # Run MSAs with mmseqs2 on GPU
 colabfold_search \
@@ -456,7 +485,9 @@ Submit the job:
 ```bash
 sbatch step2_submit_colabfold_msa.sh
 # Submitted batch job <JOB_ID_HERE>
+```
 
+```bash
 # save job id for later
 MSA_JOB_ID=<JOB_ID_HERE>
 ```
