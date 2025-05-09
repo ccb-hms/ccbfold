@@ -1,14 +1,12 @@
 ---
-title: "AF3 Workshop"
+title: "AlphaFold3 on O2 Workshop"
 format: 
   html:
     theme: cosmo
     toc: true
     toc-location: left
-    highlight-style: gruvbox
-  
+    highlight-style: github
 ---
-# AlphaFold3 on O2 Workshop
 
 Welcome to the AlphaFold3 Workshop!
 
@@ -129,6 +127,8 @@ Now you're ready to submit your first AlphaFold3 prediction job:
 # sbatch -A zaklab pdb_7rce_submit.sh
 sbatch pdb_7rce_submit.sh
 ```
+
+The AlphaFold3 O2 module will run on `l40s`, `teslaV100s`, or `a100` GPUs. You do not need to set any flags or environmental variables as specified in the AlphaFold3 documentation.
 
 ### Exercise 2: Running a Batch of Jobs
 
