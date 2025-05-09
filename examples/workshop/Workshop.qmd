@@ -166,12 +166,16 @@ If you want to generate structures for many different protein-ligand pairs, sett
 
 All of the sequences and corresponding small molecules are stored in a tab-separated file like this:
 
+::: {.table-container style="overflow-x: auto; border: 1px solid #ddd; border-radius: .375rem; padding: 10px 0px;"}
+
 |   Symbol   |   ProteinSequence                            |   Compound  |   SMILES                                        |
 |------------|----------------------------------------------|-------------|-------------------------------------------------|
 |   RREB1    | MTSSSPAGLEGSDLSSINTMMSAVMSVGKVTENGGSPQ... |   E1879     |   Cn1c(CNC=C(C#N)C(=O)Nc2ccccc2)cc(=O)n(C)c1=O  |
 |   SEPTIN5  | MSTGLRYKSKLATPEDKQDIDKQYVGFATLPNQVHRKSV... |   E2964     |   CN(C)c1nc(ncc1NC(=O)CCl)N2CCOCC2              |
 |   ATP6V1A  | MDFSKLPKILDEDKESTFGYVHGVSGPVVTACDMAGAAM... |   CL117     |   NC(=O)C=1C=CC=CC1NC(=O)CCl                    |
 |   ...  | ... |   ...     |   ...                  |
+
+:::
 
 Our job is to predict the structure of each protein sequence in complex with its associated small molecule, using the provided SMILES string as the ligand.
 
