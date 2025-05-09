@@ -143,7 +143,7 @@ sacctmgr show associations user=$USER format=Account%35
 :::
 
 
-::: {.callout-note collapse="false" title="Helpful Slurm Commands"}
+::: {.callout-note collapse="true" title="Helpful Slurm Commands"}
 To check the status of current jobs:
 
 ```bash
