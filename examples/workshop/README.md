@@ -36,7 +36,7 @@ mkdir ../af3_workshop
 cd ../af3_workshop
 ```
 
-### Exercise 1: Hello Alphafold3
+### Exercise 1: Hello Alphafold3 {#exercise1}
 
 
 To get started, we'll use a simple example involving a DNA-binding protein and gene-editing meganuclease, along with its the DNA sequence that it binds to. A crystal structure for this complex is available in [PDB entry 7RCE](https://www.rcsb.org/structure/7RCE).
@@ -117,7 +117,7 @@ module load alphafold/3.0.1
 
 run_alphafold.py \
    --json_path=pdb_7rce_input.json \
-   --output_dir=pdb_7rce_output
+   --output_dir=.
 ```
 
 Now you're ready to submit your first AlphaFold3 prediction job:
@@ -566,7 +566,29 @@ sbatch --dependency=afterok:$MSA_JOB_ID step4_submit_af3_inference_batch.sh
 
 ### Exercise 5: Visualizing Predictions and Interpreting Confidence Metrics
 
-At the end of the inference step, you should have the following files in the results folder.
+This exercise will be completed locally due to complexities of visualization on the O2 cluster. From the terminal, install the visualization branch of the `ccbfold` repo:
+
+```bash
+# install uv package manager
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# add to PATH
+source $HOME/.local/bin/env
+
+# download ccbfold repo
+git clone https://github.com/ccb-hms/ccbfold.git
+cd ccbfold
+
+# restore venv and activate
+uv sync --extra visualization
+source .venv/bin/activate
+
+# create and move to directory for workshop
+mkdir ../af3_workshop
+cd ../af3_workshop
+```
+
+After completing [Exercise 1](#exercise1), you should have the following files in `01_basic/protein-dna-ion_pdb_7rce/`.
 ```
 .
 ├── TERMS_OF_USE.md
@@ -575,13 +597,27 @@ At the end of the inference step, you should have the following files in the res
 ├── protein-dna-ion_pdb_7rce_model.cif
 ├── protein-dna-ion_pdb_7rce_summary_confidences.json
 ├── ranking_scores.csv
-├── seed-2530573219_sample-0
-├── seed-2530573219_sample-1
-├── seed-2530573219_sample-2
-├── seed-2530573219_sample-3
-└── seed-2530573219_sample-4
+├── seed-1_sample-0/
+├── seed-1_sample-1/
+├── seed-1_sample-2/
+├── seed-1_sample-3/
+└── seed-1_sample-4/
 ```
-These result files should contain the <"name"> from the input json. The actual structure is contained in a macromolecular Crystallographic Information File (.mmCIF or .cif), a standard text file format used for representing crystallographic information. Since 2014, this is the default file format for the [Protein Data Bank](https://www.wwpdb.org/). The top-scoring model and confidence is in the root directory. Sub-directories contain the results for each sample and seed the rank of each is described in `ranking_scores.csv`.
+
+For convenience, you can download the top-level results:
+
+```bash
+mkdir 05_visualization
+cd 05_visualization
+
+# download results from
+mkdir ../data
+curl -L -o ../data/preliminaryTests.tsv "https://raw.githubusercontent.com/ccb-hms/ccbfold/refs/heads/main/examples/workshop/data/01_basic_results.zip"
+
+unzip -f ../data/01_basic_results.zip -d 01_basic_results
+```
+
+The predicted structure is contained in the CIF file (Crystallographic Information File), a standard text file format used for representing crystallographic information. Since 2014, this is the default file format for the [Protein Data Bank](https://www.wwpdb.org/). The top-scoring model and confidence is in the root directory. Sub-directories contain the results for each sample and seed the rank of each is described in `ranking_scores.csv`.
 
 The mmcif file format is incredibly powerful. There is not enough time to go into the details of this format but know it is well supported by visualization applications such as Jmol, Chimera, and OpenRasMol and structure determination systems such as CCP4 and Phenix.
 
@@ -590,7 +626,7 @@ We will use a simple WebGL protein viewer widget to quickly render the structure
 
 ```python
 import nglview as nv
-filepath = "result/protein-dna-ion_pdb_7rce/protein-dna-ion_pdb_7rce_model.cif"
+filepath = "01_basic_results/protein-dna-ion_pdb_7rce_model.cif"
 res_7rce = nv.show_file(filepath, ext='cif')
 res_7rce
 ```
@@ -633,7 +669,7 @@ Using the superpose approximation from NGviewer js library
 from Bio.PDB import MMCIFParser
 parser = MMCIFParser()
 #parse mmcif files
-structure1 = parser.get_structure("prediction","result/protein-dna-ion_pdb_7rce/protein-dna-ion_pdb_7rce_model.cif")
+structure1 = parser.get_structure("prediction","01_basic_results/protein-dna-ion_pdb_7rce_model.cif")
 structure2 = parser.get_structure("source","data/PDB_files/7rce.cif")
 
 #construct the superpose view
@@ -686,7 +722,7 @@ The [mol* model viewer](https://molstar.org/) can color the 3D model by this sca
 ```python
 from pathlib import Path 
 from ipymolstar import PDBeMolstar
-fpth= Path('/result/protein-dna-ion_pdb_7rce/protein-dna-ion_pdb_7rce_model.cif')
+fpth= Path('/01_basic_results/protein-dna-ion_pdb_7rce_model.cif')
 custom_data = {
     'data': fpth.read_bytes(),
     'format': 'cif',
@@ -707,7 +743,7 @@ Another visualization method is to plot the confidence score for each atom. Elev
 import json
 from eval_plots import plot_plddt
 #load the json file containing the pLDDT and PAE data
-F= open('/result/protein-dna-ion_pdb_7rce/protein-dna-ion_pdb_7rce_confidences.json')
+F= open('/01_basic_results/protein-dna-ion_pdb_7rce_confidences.json')
 data = json.load(F)
 #plot the pLDDT values
 plot_plddt(data['atom_plddts'], data['atom_chain_ids'])

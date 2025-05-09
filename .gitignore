@@ -15,5 +15,5 @@ examples/workshop/03_separate_msa/af3_inputs/
 examples/workshop/data/preliminaryTests.fasta
 
 # quarto/posit build files
-examples/workshop/Workshop_files/
+examples/workshop/README_files/
 examples/workshop/.posit/

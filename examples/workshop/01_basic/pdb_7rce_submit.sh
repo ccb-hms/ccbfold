@@ -11,4 +11,4 @@ module load alphafold/3.0.1
 
 run_alphafold.py \
    --json_path=pdb_7rce_input.json \
-   --output_dir=pdb_7rce_output
+   --output_dir=.
