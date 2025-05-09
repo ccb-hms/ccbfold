@@ -13,6 +13,7 @@ wheels/
 examples/workshop/02_batch_of_jobs/af3_inputs/
 examples/workshop/03_separate_msa/af3_inputs/
 examples/workshop/data/preliminaryTests.fasta
+examples/workshop/data/PDB_files/
 
 # quarto/posit build files
 examples/workshop/README_files/
