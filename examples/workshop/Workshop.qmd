@@ -128,7 +128,7 @@ sbatch pdb_7rce_submit.sh
 
 
 ::: {.callout-important title="Specifying Account"}
-If you have multiple billing accounts, you will to to specify one. For example: 
+If you have multiple billing accounts, you will have to specify one. For example: 
 
 ```bash
 sbatch -A zaklab pdb_7rce_submit.sh
@@ -340,6 +340,7 @@ run_alphafold.py \
 ```
 
 Note that the submission script has the following changes:
+
 - adds `--norun_inference` flag so that AlphaFold3 only runs MSA
 - we save the MSA results to `af3_msa_outputs`
 - we no longer need a GPU so we use the `short` partition and remove the `--gres` flag
