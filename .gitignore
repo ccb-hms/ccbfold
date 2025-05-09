@@ -15,6 +15,8 @@ examples/workshop/03_separate_msa/af3_inputs/
 examples/workshop/data/preliminaryTests.fasta
 examples/workshop/data/PDB_files/
 
+examples/workshop/05_visualization/__pycache__/
+examples/workshop/05_visualization/.ipynb_checkpoints/
 # quarto/posit build files
 examples/workshop/README_files/
 examples/workshop/.posit/
