@@ -646,3 +646,13 @@ You're now equipped with a variety of workflows for running AlphaFold3:
 - Accelerating MSA using GPU-based mmseqs2
 
 Feel free to extend these approaches to your own data and explore more complex modeling tasks. Happy folding!
+
+
+```{mermaid}
+flowchart TD
+    A[Start: Do you need to predict structures?] --> B{How many structures?}
+    B --> C[#8226; 30 or fewer per day<br/>#8226; <5000 tokens per &nbsp;&nbsp;&nbsp;structure<br/>#8226; biologically common &nbsp;&nbsp;&nbsp;ligands / PTMs] --> D[Use AlphaFold Server]
+    B --> E[#8226; A handful<br/>#8226; not matching server &nbsp;&nbsp;&nbsp;criteria] --> F[Use O2 AlphaFold3 module<br/>without modification]
+    B --> G[#8226; More than a handful<br/>#8226; exact AlphaFold3 spec &nbsp;&nbsp;&nbsp;desired] --> H[Split MSA and Inference<br/>Run MSAs on CPU-only node]
+    B --> I[#8226; Many structures<br/>#8226; high throughput desired] --> J[Run MSAs with mmseqs2<br/>then use AlphaFold3 module for inference]
+```
