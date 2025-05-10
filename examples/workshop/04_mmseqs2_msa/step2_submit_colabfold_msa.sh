@@ -7,14 +7,13 @@
 #SBATCH --gres=gpu:l40s:1        # GPU requested
 #SBATCH -t 0-08:00               # Runtime in D-HH:MM
 
-module use /n/shared_db/tmp/module
-module load colabfold
-module load mmseqs2
+module load localcolabfold/406d4c6
+module load mmseqs2/17-b804f
 
 OUTPUT_DIR="colabfold_msa_outputs"
 
 # Shared database directory for colabfold MSAs
-DATABASE_DIR="/n/shared_db/tmp/colabfold"
+DATABASE_DIR="/n/shared_db/colabfold/406d4c6/"
 
 # Run MSAs with mmseqs2 on GPU
 colabfold_search \
