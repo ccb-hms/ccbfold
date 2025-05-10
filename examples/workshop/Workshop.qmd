@@ -158,10 +158,16 @@ scancel <JOB_ID>
 :::
 
 ::: {.callout-note collapse="false" title="AlphaFold3 GPU Types"}
-The AlphaFold3 O2 module will run on `l40s`, `teslaV100s`, `a100`, and `a40` GPUs. To indicate that any of the previous GPUs is okay to use, we can exclude nodes that do not contain one of these GPUs:
+The AlphaFold3 O2 module will run on `l40s`, `teslaV100s`, `a100`, and `a40` GPUs. We can see the GPU types for each node with:
 
 ```bash
-# nodes that don't have an appropriate GPU
+sinfo --Format=nodehost,available,memory,statelong,gres:40 -p gpu,gpu_quad
+```
+
+To indicate that any of the nodes with a compatible GPU is okay to use, we can exclude non-compatible nodes:
+
+```bash
+# nodes that don't have a compatible GPU
 EXCLUDE_NODES=compute-g-16-[254-255],compute-g-17-[145-146,153-161]
 
 sbatch --exclude=$EXCLUDE_NODES --gres=gpu:1 pdb_7rce_submit.sh
