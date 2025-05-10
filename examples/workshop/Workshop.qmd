@@ -167,7 +167,7 @@ EXCLUDE_NODES=compute-g-16-[254-255],compute-g-17-[145-146,153-161]
 sbatch --exclude=$EXCLUDE_NODES --gres=gpu:1 pdb_7rce_submit.sh
 ```
 
-The command line argument `--gres=gpu:1` takes precedence over the `#SBATCH --gres=gpu:l40s:1` line in our script and is used to indicate that we want 1 GPU that meets our other requirements.
+The command line argument `--gres=gpu:1` takes precedence over the `#SBATCH --gres=gpu:l40s:1` line in our script and is used to indicate that we want any GPU that meets our other requirements (not excluded).
 
 :::
 
