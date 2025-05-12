@@ -658,32 +658,22 @@ Click __Launch__, then __Connect to Jupyter__ once your session is allocated. Fi
 
 :::
 
-::: {.callout-note collapse="false" title="Local Jupyter Setup"}
+::: {.callout-note collapse="false" title="Local Jupyter uv Setup"}
 
- From the terminal, install the visualization dependencies for the `ccbfold` package:
+ These instructions will work on most unix terminals including MacOS Terminal and WSL2:
 
 ```bash
+cd $HOME/ccbfold
 # install uv package manager
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# add to PATH
-source $HOME/.local/bin/env
-
-# download latest ccbfold release
-curl -L https://github.com/ccb-hms/ccbfold/archive/refs/tags/v0.1.2.tar.gz | tar -xz
-cd ccbfold-0.1.2
-
-# restore venv and activate
-uv sync --extra visualization
-source .venv/bin/activate
-
-# move to visualization example
-cd examples/workshop/05_visualization
+# install the juv tool
+uv tool install juv
 
 # launch the notebook
-jupyter notebook
+juv run examples/workshop/05_visualization/pdb_7rce_visualization.ipynb
 ```
-In your browser, open `pdb_7rce_visualization.ipynb`.
+If the browser does not automatically open, click on the url ["http://localhost:8888/lab"](http://localhost:8888/lab) or copy the juypter server url to a browser. Then open `pdb_7rce_visualization.ipynb`.
 :::
 
 ---
