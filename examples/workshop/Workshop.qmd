@@ -25,7 +25,7 @@ Start by logging in to the HMS O2 cluster:
 ssh youraccount@o2.hms.harvard.edu
 ```
 
-To begin, we'll set up a reproducible Python environment with all required packages. We’ll use [uv](https://docs.astral.sh/uv/), a fast Python project manager written in Rust, to restore the virtual environment for `ccbfold`—a custom Python package developed for this workshop.
+To begin, we'll set up a reproducible Python environment with all required packages. We’ll use [uv](https://docs.astral.sh/uv/){target="_blank"}, a fast Python project manager written in Rust, to restore the virtual environment for `ccbfold`—a custom Python package developed for this workshop.
 
 ```bash
 # install uv package manager
@@ -50,7 +50,7 @@ cd ../af3_workshop
 ### Exercise 1: Hello Alphafold3 {#exercise1}
 
 
-To get started, we'll use a simple example involving a DNA-binding protein and gene-editing meganuclease, along with its the DNA sequence that it binds to. A crystal structure for this complex is available in [PDB entry 7RCE](https://www.rcsb.org/structure/7RCE).
+To get started, we'll use a simple example involving a DNA-binding protein and gene-editing meganuclease, along with its the DNA sequence that it binds to. A crystal structure for this complex is available in [PDB entry 7RCE](https://www.rcsb.org/structure/7RCE){target="_blank"}.
 
 First, create the necessary input file for AlphaFold3:
 
@@ -191,7 +191,7 @@ The command line argument `--gres=gpu:1` takes precedence over the `#SBATCH --gr
 
 ### Exercise 2: Running a Batch of Jobs
 
-If you want to generate structures for many different protein-ligand pairs, setting up input files one at a time quickly becomes tedious. Instead, we can use a Python utility called [af3cli](https://github.com/SLx64/af3cli) to programmatically generate input JSONs.
+If you want to generate structures for many different protein-ligand pairs, setting up input files one at a time quickly becomes tedious. Instead, we can use a Python utility called [af3cli](https://github.com/SLx64/af3cli){target="_blank"} to programmatically generate input JSONs.
 
 All of the sequences and corresponding small molecules are stored in a tab-separated file like this:
 
@@ -631,7 +631,7 @@ sbatch --dependency=afterok:$MSA_JOB_ID step4_submit_af3_inference_batch.sh
 
 ### Exercise 5: Visualizing Predictions and Interpreting Confidence Metrics
 
-The following exercise can either be run locally or through the [Jupyter IDE on the O2 Portal](https://o2portal.rc.hms.harvard.edu/pun/sys/dashboard/batch_connect/sys/RC_jupyter/session_contexts/new).
+The following exercise can either be run locally or through the [Jupyter IDE on the O2 Portal](https://o2portal.rc.hms.harvard.edu/pun/sys/dashboard/batch_connect/sys/RC_jupyter/session_contexts/new){target="_blank"}.
 
 
 ::: {.callout-note collapse="false" title="Jupyter O2 Portal Setup"}
@@ -643,7 +643,7 @@ cd $HOME/ccbfold
 uv sync --extra visualization
 ```
 
-Set the following inputs for the [Jupyter IDE on the O2 Portal](https://o2portal.rc.hms.harvard.edu/pun/sys/dashboard/batch_connect/sys/RC_jupyter/session_contexts/new):
+Set the following inputs for the [Jupyter IDE on the O2 Portal](https://o2portal.rc.hms.harvard.edu/pun/sys/dashboard/batch_connect/sys/RC_jupyter/session_contexts/new){target="_blank"}:
 
 - __Modules to be preloaded__:
   - make it blank
