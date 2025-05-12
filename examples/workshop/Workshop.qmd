@@ -18,7 +18,7 @@ The workshop exercises below provide participants with hands-on experience runni
 
 ### Setup
 
-Start by logging in to the HMS O2 HPC cluster:
+Start by logging in to the HMS O2 cluster:
 
 ```bash
 # substitute `youraccount` for your actual HMS ID in lowercase
