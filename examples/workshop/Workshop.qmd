@@ -10,9 +10,18 @@ format:
 
 Welcome to the AlphaFold3 Workshop!
 
-AlphaFold3 significantly advances protein structure prediction beyond AlphaFold2, offering greater accuracy and broader capabilities.
+AlphaFold3 significantly advances protein structure prediction beyond AlphaFold2, offering greater accuracy and broader capabilities. AlphaFold3 can generate highly accurate biomolecular structure predictions directly from amino acid and nucleic acid sequences, including structures that incorporate proteins, DNA, RNA, ligands, ions, and chemical modifications to both proteins and nucleic acids.
+
+The workshop exercises below provide participants with hands-on experience running AlphaFold3 on O2. Attendees will learn how to use the tool to predict either a single or multiple structures, visualize results, and interpret confidence metrics. The session will also cover best practices for optimizing resource usage and throughput, making it easier to scale up predictions across large sets of biomolecular targets.
 
 ### Setup
+
+Start by logging in to the HMS O2 HPC cluster:
+
+```bash
+# substitute `youraccount` for your actual HMS ID in lowercase
+ssh youraccount@o2.hms.harvard.edu
+```
 
 To begin, we'll set up a reproducible Python environment with all required packages. We’ll use [uv](https://docs.astral.sh/uv/), a fast Python project manager written in Rust, to restore the virtual environment for `ccbfold`—a custom Python package developed for this workshop.
 
