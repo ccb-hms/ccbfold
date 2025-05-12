@@ -631,7 +631,36 @@ sbatch --dependency=afterok:$MSA_JOB_ID step4_submit_af3_inference_batch.sh
 
 ### Exercise 5: Visualizing Predictions and Interpreting Confidence Metrics
 
-This exercise will be completed locally due to complexities of visualization on the O2 cluster. From the terminal, install the visualization branch of the `ccbfold` repo:
+The following exercise can either be run locally or through the [Jupyter IDE on the O2 Portal](https://o2portal.rc.hms.harvard.edu/pun/sys/dashboard/batch_connect/sys/RC_jupyter/session_contexts/new).
+
+
+::: {.callout-note collapse="false" title="Jupyter O2 Portal Setup"}
+
+From the terminal on O2, install the visualization dependencies:
+
+```bash
+cd $HOME/ccbfold
+uv sync --extra visualization
+```
+
+Set the following inputs for the Jupyter IDE on the O2 Portal:
+
+- __Modules to be preloaded__:
+  - make it blank
+- __Total Job Memory in GB for the job__: 
+  - `8`
+- __Jupyter Environment__: 
+  - `source ~/ccbfold/.venv/bin/activate`
+- __Jupyter Extra Arguments__: 
+  - `--notebook-dir=$HOME/ccbfold/examples/workshop/05_visualization`
+
+Click __Launch__, then __Connect to Jupyter__ once your session is allocated. Finally open `pdb_7rce_visualization.ipynb`.
+
+:::
+
+::: {.callout-note collapse="false" title="Local Jupyter Setup"}
+
+ From the terminal, install the visualization dependencies of the `ccbfold` repo:
 
 ```bash
 # install uv package manager
@@ -640,7 +669,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 # add to PATH
 source $HOME/.local/bin/env
 
-# download latest ccbfold
+# download latest ccbfold release
 curl -L https://github.com/ccb-hms/ccbfold/archive/refs/tags/v0.1.1.tar.gz | tar -xz
 cd ccbfold-0.1.1
 
@@ -650,21 +679,12 @@ source .venv/bin/activate
 
 # move to visualization example
 cd examples/workshop/05_visualization
-```
 
-For convenience, the results for the highest ranking prediction are included in `data/protein-dna-ion_pdb_7rce/`:
-
-```bash
-ls ../data/protein-dna-ion_pdb_7rce
-```
-
-The remainder of the exercise takes place in an interactive `jupyter` notebook. To start it up run:
-
-```bash
+# launch the notebook
 jupyter notebook
-
-# open pdb_7rce_visualization.ipynb
 ```
+In your browser, open `pdb_7rce_visualization.ipynb`.
+:::
 
 ---
 
