@@ -643,7 +643,7 @@ cd $HOME/ccbfold
 uv sync --extra visualization
 ```
 
-Set the following inputs for the Jupyter IDE on the O2 Portal:
+Set the following inputs for the [Jupyter IDE on the O2 Portal](https://o2portal.rc.hms.harvard.edu/pun/sys/dashboard/batch_connect/sys/RC_jupyter/session_contexts/new):
 
 - __Modules to be preloaded__:
   - make it blank
