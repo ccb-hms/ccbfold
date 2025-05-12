@@ -18,31 +18,31 @@ def plot_plddt(atom_plddts: list[int], atom_chain_ids: list[str]) -> None:
     ax.add_patch(
         patches.Rectangle(
             (1, 90), xlim, 10,
-            color='#0751d9', alpha=0.2, label='Very High (90-100)'
+            color='#0751d9', alpha=1, label='Very High (90-100)'
         )
     )
     ax.add_patch(
         patches.Rectangle(
             (1, 70), xlim, 20,
-            color='#69c9f4', alpha=0.2, label='High (70-90)'
+            color='#69c9f4', alpha=1, label='High (70-90)'
         )
     )
     ax.add_patch(
         patches.Rectangle(
             (1, 50), xlim, 20,
-            color='#fedb0f', alpha=0.2, label='Low (50-70)'
+            color='#fedb0f', alpha=1, label='Low (50-70)'
         )
     )
     ax.add_patch(
         patches.Rectangle(
             (1, min(atom_plddts)), xlim, 50-min(atom_plddts),
-            color='#ff7c4f', alpha=0.2, label='Very Low (<50)'
+            color='#ff7c4f', alpha=1, label='Very Low (<50)'
         )
     )
 
     if len(chains := Counter(atom_chain_ids)) > 1:
         x = 1
-        plt.axvline(x=x, color='grey', linestyle='--', alpha=0.5)
+        plt.axvline(x=x, color='grey', linestyle='--', alpha=1)
         ticks = []
         for chain_len in chains.values():
             ticks += [
@@ -51,7 +51,7 @@ def plot_plddt(atom_plddts: list[int], atom_chain_ids: list[str]) -> None:
                 if chain_pos % 1000 == 0
             ]
             plt.axvline(
-                x=(x := x+chain_len), color='grey', linestyle='--', alpha=0.5
+                x=(x := x+chain_len), color='grey', linestyle='--', alpha=1
             )
         plt.xticks([t[0] for t in ticks], labels=[t[1] for t in ticks])
         plt.xlabel('Atom (per chain)', fontsize=12)

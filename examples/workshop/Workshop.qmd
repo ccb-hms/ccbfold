@@ -660,7 +660,7 @@ Click __Launch__, then __Connect to Jupyter__ once your session is allocated. Fi
 
 ::: {.callout-note collapse="false" title="Local Jupyter Setup"}
 
- From the terminal, install the visualization dependencies of the `ccbfold` repo:
+ From the terminal, install the visualization dependencies for the `ccbfold` package:
 
 ```bash
 # install uv package manager
