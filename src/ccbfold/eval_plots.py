@@ -18,25 +18,25 @@ def plot_plddt(atom_plddts: list[int], atom_chain_ids: list[str]) -> None:
     ax.add_patch(
         patches.Rectangle(
             (1, 90), xlim, 10,
-            color='green', alpha=0.2, label='Very High (90-100)'
+            color='#0751d9', alpha=0.2, label='Very High (90-100)'
         )
     )
     ax.add_patch(
         patches.Rectangle(
             (1, 70), xlim, 20,
-            color='darkorange', alpha=0.2, label='High (70-90)'
+            color='#69c9f4', alpha=0.2, label='High (70-90)'
         )
     )
     ax.add_patch(
         patches.Rectangle(
             (1, 50), xlim, 20,
-            color='red', alpha=0.2, label='Low (50-70)'
+            color='#fedb0f', alpha=0.2, label='Low (50-70)'
         )
     )
     ax.add_patch(
         patches.Rectangle(
             (1, min(atom_plddts)), xlim, 50-min(atom_plddts),
-            color='grey', alpha=0.2, label='Very Low (<50)'
+            color='#ff7c4f', alpha=0.2, label='Very Low (<50)'
         )
     )
 
