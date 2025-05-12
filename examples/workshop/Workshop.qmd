@@ -670,8 +670,8 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 source $HOME/.local/bin/env
 
 # download latest ccbfold release
-curl -L https://github.com/ccb-hms/ccbfold/archive/refs/tags/v0.1.1.tar.gz | tar -xz
-cd ccbfold-0.1.1
+curl -L https://github.com/ccb-hms/ccbfold/archive/refs/tags/v0.1.2.tar.gz | tar -xz
+cd ccbfold-0.1.2
 
 # restore venv and activate
 uv sync --extra visualization
