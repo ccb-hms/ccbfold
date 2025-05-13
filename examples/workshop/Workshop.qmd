@@ -48,7 +48,7 @@ cd ../af3_workshop
 ### Exercise 1: Hello Alphafold3 {#exercise1}
 
 
-To get started, we'll use a simple example involving a DNA-binding protein and gene-editing meganuclease, along with its the DNA sequence that it binds to. A crystal structure for this complex is available in [PDB entry 7RCE](https://www.rcsb.org/structure/7RCE){target="_blank"}.
+To get started, we'll use a simple example involving a DNA-binding protein and gene-editing meganuclease, along with the DNA sequence that it binds to. A crystal structure for this complex is available in [PDB entry 7RCE](https://www.rcsb.org/structure/7RCE){target="_blank"}.
 
 First, create the necessary input file for AlphaFold3:
 
