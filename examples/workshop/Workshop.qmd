@@ -10,11 +10,9 @@ format:
 
 ### Introduction
 
-Welcome to the AlphaFold3 Workshop!
-
 AlphaFold3 significantly advances protein structure prediction beyond AlphaFold2, offering greater accuracy and broader capabilities. AlphaFold3 can generate highly accurate biomolecular structure predictions directly from amino acid and nucleic acid sequences, including structures that incorporate proteins, DNA, RNA, ligands, ions, and chemical modifications to both proteins and nucleic acids.
 
-The workshop exercises below provide participants with hands-on experience running AlphaFold3 on O2. Attendees will learn how to use the tool to predict either a single or multiple structures, visualize results, and interpret confidence metrics. The session will also cover best practices for optimizing resource usage and throughput, making it easier to scale up predictions across large sets of biomolecular targets.
+The exercises below provide hands-on experience with running AlphaFold3 on O2. You will learn how to use the tool to predict either a single or multiple structures, visualize results, and interpret confidence metrics. The exercises will also cover best practices for optimizing resource usage and throughput, making it easier to scale up predictions across large sets of biomolecular targets.
 
 ### Setup
 
