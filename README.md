@@ -30,3 +30,10 @@ source .venv/bin/activate
 ```bash
 python3 pip install -e .
 ```
+
+## To just run the notebooks
+```bash
+uv tool install juv
+juv run examples/workshop/05_visualization/pdb_7rce_visualization.ipynb
+
+```
