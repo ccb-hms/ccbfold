@@ -189,7 +189,7 @@ The command line argument `--gres=gpu:1` takes precedence over the `#SBATCH --gr
 
 ### Exercise 2: Running a Batch of Jobs
 
-If you want to generate structures for many different protein-ligand pairs, setting up input files one at a time quickly becomes tedious. Instead, we can use a Python utility called [af3cli](https://github.com/SLx64/af3cli){target="_blank"} to programmatically generate input JSONs.
+If you want to generate structures for many different protein-ligand pairs, setting up input files one at a time quickly becomes tedious. Instead, we can use a Python package called [af3cli](https://github.com/SLx64/af3cli){target="_blank"} to programmatically generate input JSONs.
 
 All of the sequences and corresponding small molecules are stored in a tab-separated file like this:
 
@@ -206,7 +206,7 @@ All of the sequences and corresponding small molecules are stored in a tab-separ
 
 Our job is to predict the structure of each protein sequence in complex with its associated small molecule, using the provided SMILES string as the ligand.
 
-Start by setting up a directory and writing the script that converts the above TSV into AlphaFold3-compatible inputs:
+Start by setting up a directory and writing the script that uses the above TSV to generate AlphaFold3-compatible inputs:
 
 ```bash
 # go up one directory if still in 01_basic/
@@ -258,7 +258,7 @@ with open(INPUT_FILE, newline='', encoding='utf-8') as f:
 
 ```
 
-Before running this script, download the input dataset:
+Before running this script, download the TSV input file:
 
 ```bash
 mkdir ../data
@@ -316,7 +316,7 @@ sbatch step2_submit_batch.sh
 
 ### Exercise 3: Separate MSA and Inference
 
-When running AlphaFold3, the majority of execution time — often more than 80% — is spent creating the multiple sequence alignment (MSA), a step that only uses CPUs. To better utilize GPU resources, we can split the run into two phases: first run MSA, and then run inference separately.
+When running AlphaFold3, the majority of execution time — typically 80% — is spent creating the multiple sequence alignment (MSA), a step that only uses CPUs. To better utilize GPU resources, we can split the run into two phases: first run MSA, and then run inference separately.
 
 Set up the directory and copy over inputs from the previous exercise:
 
@@ -424,6 +424,7 @@ run_alphafold.py \
 ```
 
 Note the following changes:
+
 - added `--norun_data_pipeline` flag so AlphaFold3 only runs inference step
 - our `INPUT_FILE` for each submission is the output of the MSA step instead of the original JSON
 - we save our final results to `af3_inference_outputs`
@@ -437,7 +438,7 @@ sbatch --dependency=afterok:$MSA_JOB_ID step3_submit_inference_batch.sh
 
 ### Exercise 4: Run MSAs on GPU with mmseqs2
 
-Previously, we split MSA and inference execution to reduce wasted GPU time. In this exercise, we’ll take it a step further and use `mmseqs2`, which includes GPU acceleration for MSA generation, allowing throughput improvements of ~10x as compared to `jackhmmer`.
+Previously, we split MSA and inference execution to reduce wasted GPU time. In this exercise, we’ll take it a step further and use `mmseqs2`, which includes GPU acceleration for MSA generation, allowing throughput improvements of ~10x as compared to `jackhmmer` (what AF3 uses internally).
 
 We’ll start by generating a `.fasta` file with all protein sequences:
 
@@ -524,7 +525,7 @@ sbatch step2_submit_colabfold_msa.sh
 MSA_JOB_ID=<JOB_ID_HERE>
 ```
 
-Then, generate AlphaFold3 input files using the MSAs from `mmseqs2`:
+Next, we need to generate AlphaFold3 input files using the MSAs from `mmseqs2`:
 
 ```bash
 nano step3_generate_af3_inference_inputs.py
@@ -609,11 +610,8 @@ INPUT_DIR="af3_inference_inputs"
 INPUT_FILES=(${INPUT_DIR}/*.json)
 INPUT_FILE=${INPUT_FILES[$SLURM_ARRAY_TASK_ID]}
 
-# Derive job name and output directory from file name
-JOB_NAME=$(basename "$INPUT_FILE" .json)
-OUTPUT_DIR="af3_inference_outputs"
-
 # Make sure output directory exists
+OUTPUT_DIR="af3_inference_outputs"
 mkdir -p "$OUTPUT_DIR"
 
 run_alphafold.py \
@@ -681,7 +679,7 @@ cd examples/workshop/05_visualization
 # launch the notebook
 jupyter notebook
 ```
-If the browser does not automatically open, click on the url ["http://localhost:8888"](http://localhost:8888) or copy the juypter server url to a browser. Then open `pdb_7rce_visualization.ipynb`.
+If the browser does not automatically open, click on the url [http://localhost:8888](http://localhost:8888){target="_blank"} or copy the juypter server url to a browser. Then open `pdb_7rce_visualization.ipynb`.
 :::
 
 ---
@@ -690,7 +688,7 @@ You're now equipped with a variety of workflows for running AlphaFold3:
 
 - A single end-to-end prediction of a protein-DNA complex
 - Automatically generating inputs and running batch predictions
-- Separately running MSA and inference to optimize compute usage
+- Separately running MSA and inference to optimize GPU usage
 - Accelerating MSA using GPU-based mmseqs2
 
 Feel free to extend these approaches to your own data and explore more complex modeling tasks. Happy folding!

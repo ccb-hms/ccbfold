@@ -15,11 +15,8 @@ INPUT_DIR="af3_inference_inputs"
 INPUT_FILES=(${INPUT_DIR}/*.json)
 INPUT_FILE=${INPUT_FILES[$SLURM_ARRAY_TASK_ID]}
 
-# Derive job name and output directory from file name
-JOB_NAME=$(basename "$INPUT_FILE" .json)
-OUTPUT_DIR="af3_inference_outputs"
-
 # Make sure output directory exists
+OUTPUT_DIR="af3_inference_outputs"
 mkdir -p "$OUTPUT_DIR"
 
 run_alphafold.py \
