@@ -29,6 +29,10 @@ To begin, we'll set up a reproducible Python environment with all required packa
 # install uv package manager
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
+# create and move to directory for workshop
+mkdir af3_workshop
+cd af3_workshop
+
 # download ccbfold repo
 git clone https://github.com/ccb-hms/ccbfold.git
 cd ccbfold
@@ -37,9 +41,8 @@ cd ccbfold
 uv sync
 source .venv/bin/activate
 
-# create and move to directory for workshop
-mkdir ../af3_workshop
-cd ../af3_workshop
+# go back to af3_workshop/
+cd ..
 ```
 
 ### Exercise 1: Hello Alphafold3 {#exercise1}
@@ -632,7 +635,7 @@ The following exercise can either be run locally or through the [Jupyter IDE on 
 From the terminal on O2, install the visualization dependencies:
 
 ```bash
-cd $HOME/ccbfold
+cd $HOME/af3_workshop/ccbfold
 uv sync --extra visualization
 ```
 
@@ -645,12 +648,12 @@ Set the following inputs for the [Jupyter IDE on the O2 Portal](https://o2portal
 - __Jupyter Environment__: 
 
   - ```bash
-source ~/ccbfold/.venv/bin/activate
+source ~/af3_workshop/ccbfold/.venv/bin/activate
 ```
 - __Jupyter Extra Arguments__:
 
   - ```bash
---notebook-dir=$HOME/ccbfold/examples/workshop/05_visualization
+--notebook-dir=$HOME/af3_workshop/ccbfold/examples/workshop/05_visualization
 ```
 
 Click __Launch__, then __Connect to Jupyter__ once your session is allocated. Finally open `pdb_7rce_visualization.ipynb`.
