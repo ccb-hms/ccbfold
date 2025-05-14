@@ -645,7 +645,7 @@ Set the following inputs for the [Jupyter IDE on the O2 Portal](https://o2portal
 - __Jupyter Environment__: 
 
   - ```bash
-source ~/ccbfold/.venv/bin/activat
+source ~/ccbfold/.venv/bin/activate
 ```
 - __Jupyter Extra Arguments__:
 
