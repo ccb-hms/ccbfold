@@ -29,9 +29,6 @@ To begin, we'll set up a reproducible Python environment with all required packa
 # install uv package manager
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# add to PATH
-source $HOME/.local/bin/env
-
 # download ccbfold repo
 git clone https://github.com/ccb-hms/ccbfold.git
 cd ccbfold
@@ -646,9 +643,15 @@ Set the following inputs for the [Jupyter IDE on the O2 Portal](https://o2portal
 - __Total Job Memory in GB for the job__: 
   - `8`
 - __Jupyter Environment__: 
-  - `source ~/ccbfold/.venv/bin/activate`
-- __Jupyter Extra Arguments__: 
-  - `--notebook-dir=$HOME/ccbfold/examples/workshop/05_visualization`
+
+  - ```bash
+source ~/ccbfold/.venv/bin/activat
+```
+- __Jupyter Extra Arguments__:
+
+  - ```bash
+--notebook-dir=$HOME/ccbfold/examples/workshop/05_visualization
+```
 
 Click __Launch__, then __Connect to Jupyter__ once your session is allocated. Finally open `pdb_7rce_visualization.ipynb`.
 
@@ -661,9 +664,6 @@ Click __Launch__, then __Connect to Jupyter__ once your session is allocated. Fi
 ```bash
 # install uv package manager
 curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# add to PATH
-source $HOME/.local/bin/env
 
 # download latest ccbfold release
 curl -L https://github.com/ccb-hms/ccbfold/archive/refs/tags/v0.1.3.tar.gz | tar -xz
