@@ -8,6 +8,12 @@ format:
     highlight-style: arrow
 ---
 
+Welcome to the HMS AlphaFold3 workshop!
+
+This workshop and the installation of the AlphaFold3 module on the HMS O2 cluster has been a collaborative effort between Research Computing (RC) and the Core for Computational Biomedicine (CCB).
+
+CCB collaborates with HMS quad-based researchers on computational solutions to enable biomedical discovery and innovation. To book office hours in AI and R/stats, please go to [ccb.hms.harvard.edu](ccb.hms.harvard.edu). To reach out to us for other inquiries, you can email us at <ccb_help@hms.harvard.edu>.
+
 ### Introduction
 
 AlphaFold3 significantly advances protein structure prediction beyond AlphaFold2, offering greater accuracy and broader capabilities. AlphaFold3 can generate highly accurate biomolecular structure predictions directly from amino acid and nucleic acid sequences, including structures that incorporate proteins, DNA, RNA, ligands, ions, and chemical modifications to both proteins and nucleic acids.
