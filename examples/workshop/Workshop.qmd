@@ -23,7 +23,7 @@ Start by logging in to the HMS O2 cluster:
 ssh youraccount@o2.hms.harvard.edu
 ```
 
-To begin, we'll set up a reproducible Python environment with all required packages. We’ll use [uv](https://docs.astral.sh/uv/){target="_blank"}, a fast Python project manager written in Rust, to restore the virtual environment for `ccbfold`—a custom Python package developed for this workshop.
+To begin, we'll set up a reproducible Python environment with all required packages. We’ll use [uv](https://docs.astral.sh/uv/){target="_blank"}, a fast Python project manager written in Rust, to restore the virtual environment for `ccbfold` — a custom Python package developed for this workshop.
 
 ```bash
 # install uv package manager
@@ -116,7 +116,7 @@ Paste in the following:
 #!/bin/bash
 #SBATCH -c 20                    # Request 20 cores
 #SBATCH --mem=64G                # Memory total in GiB
-#SBATCH --partition=gpu_quad     # Partition to run in
+#SBATCH --partition=gpu          # Partition to run in
 #SBATCH -o pdb_7rce_%j.out       # File to which STDOUT will be written, including job ID (%j)
 #SBATCH -e pdb_7rce_%j.err       # File to which STDERR will be written, including job ID (%j)
 #SBATCH --gres=gpu:l40s:1        # GPU requested
@@ -170,7 +170,7 @@ scancel <JOB_ID>
 The AlphaFold3 O2 module will run on `l40s`, `teslaV100s`, `a100`, and `a40` GPUs. We can see the GPU types for each node with:
 
 ```bash
-sinfo --Format=nodehost,available,memory,statelong,gres:40 -p gpu,gpu_quad
+sinfo --Format=nodehost,available,memory,statelong,gres:40 -p gpu,gpu_quad     
 ```
 
 To indicate that any of the nodes with a compatible GPU is okay to use, we can exclude non-compatible nodes:
@@ -285,7 +285,7 @@ Paste the following script:
 #!/bin/bash
 #SBATCH -c 20                    # Request 20 cores
 #SBATCH --mem=64G                # Memory total in GiB
-#SBATCH --partition=gpu_quad     # Partition to run in
+#SBATCH --partition=gpu          # Partition to run in
 #SBATCH -o logs/af3_job_%A_%a.out       # STDOUT file
 #SBATCH -e logs/af3_job_%A_%a.err       # STDERR file
 #SBATCH --gres=gpu:l40s:1        # GPU requested
@@ -397,7 +397,7 @@ Paste this:
 #!/bin/bash
 #SBATCH -c 2                     # Request 4 cores
 #SBATCH --mem=16G                # Memory total in GiB
-#SBATCH --partition=gpu_quad     # Partition to run in
+#SBATCH --partition=gpu          # Partition to run in
 #SBATCH -o logs/af3_inference_job_%A_%a.out       # STDOUT file
 #SBATCH -e logs/af3_inference_job_%A_%a.err       # STDERR file
 #SBATCH --gres=gpu:l40s:1        # GPU requested
@@ -491,7 +491,7 @@ Paste this:
 #!/bin/bash
 #SBATCH -c 20                    # Request 20 cores
 #SBATCH --mem=64G                # Memory total in GiB
-#SBATCH --partition=gpu_quad     # Partition to run in
+#SBATCH --partition=gpu          # Partition to run in
 #SBATCH -o logs/colabfold_msa_job_%A_%a.out       # STDOUT file
 #SBATCH -e logs/colabfold_msa_job_%A_%a.err       # STDERR file
 #SBATCH --gres=gpu:l40s:1        # GPU requested
@@ -596,7 +596,7 @@ Paste the following:
 #!/bin/bash
 #SBATCH -c 20                    # Request 20 cores
 #SBATCH --mem=64G                # Memory total in GiB
-#SBATCH --partition=gpu_quad     # Partition to run in
+#SBATCH --partition=gpu          # Partition to run in
 #SBATCH -o logs/af3_inference_job_%A_%a.out       # STDOUT file
 #SBATCH -e logs/af3_inference_job_%A_%a.err       # STDERR file
 #SBATCH --gres=gpu:l40s:1        # GPU requested

@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -c 2                     # Request 4 cores
 #SBATCH --mem=16G                # Memory total in GiB
-#SBATCH --partition=gpu_quad     # Partition to run in
+#SBATCH --partition=gpu          # Partition to run in
 #SBATCH -o logs/af3_inference_job_%A_%a.out       # STDOUT file
 #SBATCH -e logs/af3_inference_job_%A_%a.err       # STDERR file
 #SBATCH --gres=gpu:l40s:1        # GPU requested
