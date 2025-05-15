@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -c 2                     # Request 4 cores
+#SBATCH -c 2                     # Request 2 cores
 #SBATCH --mem=16G                # Memory total in GiB
 #SBATCH --partition=gpu          # Partition to run in
 #SBATCH -o logs/af3_inference_job_%A_%a.out       # STDOUT file
