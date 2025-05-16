@@ -713,3 +713,5 @@ You're now equipped with a variety of workflows for running AlphaFold3:
 - Accelerating MSA using GPU-based mmseqs2
 
 Feel free to extend these approaches to your own data and explore more complex modeling tasks. Happy folding!
+
+![Decision tree for choosing between AlphaFold3 workflows.](assets/workflow.png)
