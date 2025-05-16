@@ -20,18 +20,42 @@ CCB collaborates with HMS quad-based researchers on computational solutions to e
 
 AlphaFold3 significantly advances protein structure prediction beyond AlphaFold2, offering greater accuracy and broader capabilities. AlphaFold3 can generate highly accurate biomolecular structure predictions directly from amino acid and nucleic acid sequences, including structures that incorporate proteins, DNA, RNA, ligands, ions, and chemical modifications to both proteins and nucleic acids.
 
-![Predicted structure of a gene-editing meganuclease in complex with the DNA sequence it binds to. The structure is predicted in Exercise 1 and visualized in Exercise 5. PDB 7RCE.](assets/pdb_7rce.png)
+\
+
+![Predicted structure of a gene-editing meganuclease in complex with the DNA sequence it binds to. The structure is predicted in Exercise 1 and visualized in Exercise 5. PDB 7RCE.](assets/pdb_7rce.png){width=400}
+
+---
 
 The exercises below provide hands-on experience with running AlphaFold3 on O2. You will learn how to use the tool to predict either a single or multiple structures, visualize results, and interpret confidence metrics. The exercises will also cover best practices for optimizing resource usage and throughput, making it easier to scale up predictions across large sets of biomolecular targets.
 
 ### Setup
 
-Start by logging in to the HMS O2 cluster:
+Start by [logging in to the HMS O2 cluster](https://harvardmed.atlassian.net/wiki/spaces/O2/pages/1601700123/How+to+login+to+O2):
 
 ```bash
 # substitute `youraccount` for your actual HMS ID in lowercase
 ssh youraccount@o2.hms.harvard.edu
 ```
+
+Then, [request an interactive session](https://harvardmed.atlassian.net/wiki/spaces/O2/pages/1586793632/Using+Slurm+Basic#The-srun-command) (optional, but best practice):
+
+```bash
+srun --pty -p interactive --mem 8G -t 0-00:30 /bin/bash
+```
+
+::: {.callout-important title="Specifying Account"}
+If you have multiple Slurm accounts, you will have to specify one. For example: 
+
+```bash
+srun -A zaklab --pty -p interactive --mem 8G -t 0-00:30 /bin/bash
+```
+
+To check available accounts:
+
+```bash
+sacctmgr show associations user=$USER format=Account%35
+```
+:::
 
 To begin, we'll set up a reproducible Python environment with all required packages. We’ll use [uv](https://docs.astral.sh/uv/){target="_blank"}, a fast Python project manager written in Rust, to restore the virtual environment for `ccbfold` — a custom Python package developed for this workshop.
 
@@ -48,7 +72,7 @@ git clone https://github.com/ccb-hms/ccbfold.git
 cd ccbfold
 
 # restore venv and activate
-uv sync
+uv sync --extra visualization
 source .venv/bin/activate
 
 # go back to af3_workshop/
@@ -145,23 +169,6 @@ Now you're ready to submit your first AlphaFold3 prediction job:
 sbatch pdb_7rce_submit.sh
 ```
 
-
-::: {.callout-important title="Specifying Account"}
-If you have multiple billing accounts, you will have to specify one. For example: 
-
-```bash
-sbatch -A zaklab pdb_7rce_submit.sh
-```
-
-
-To check available accounts:
-
-```bash
-sacctmgr show associations user=$USER format=Account%35
-```
-:::
-
-
 ::: {.callout-note collapse="false" title="Helpful Slurm Commands"}
 To check the status of current jobs:
 
@@ -203,7 +210,8 @@ If you want to generate structures for many different protein-ligand pairs, sett
 
 All of the sequences and corresponding small molecules are stored in a tab-separated file like this:
 
-::: {.table-container style="overflow-x: auto; border: 1px solid #ddd; border-radius: .375rem; padding: 10px 0px;"}
+
+::: {.table-container style="overflow-x: auto;"}
 
 |   Symbol   |   ProteinSequence                            |   Compound  |   SMILES                                        |
 |------------|----------------------------------------------|-------------|-------------------------------------------------|
@@ -213,7 +221,7 @@ All of the sequences and corresponding small molecules are stored in a tab-separ
 |   ...  | ... |   ...     |   ...                  |
 
 :::
-
+\
 Our job is to predict the structure of each protein sequence in complex with its associated small molecule, using the provided SMILES string as the ligand.
 
 Start by setting up a directory and writing the script that uses the above TSV to generate AlphaFold3-compatible inputs:
