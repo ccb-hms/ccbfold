@@ -12,6 +12,8 @@ Welcome to the HMS AlphaFold3 workshop!
 
 This workshop and the installation of the AlphaFold3 module on the HMS O2 cluster has been a collaborative effort between Research Computing (RC) and the Core for Computational Biomedicine (CCB).
 
+RC provides scientific and computing advice to researchers, both in support of the HMS high-performance research cluster and towards other specialized and innovative solutions. To get in touch with RC or to book office hours, please see their [contact info page](https://it.hms.harvard.edu/about/departments/research-computing/contact-info) or reach out to <rchelp@hms.harvard.edu> for general RC inquiries.
+
 CCB collaborates with HMS quad-based researchers on computational solutions to enable biomedical discovery and innovation. To book office hours in AI and R/stats, please go to [ccb.hms.harvard.edu](ccb.hms.harvard.edu). To reach out to us for other inquiries, you can email us at <ccb_help@hms.harvard.edu>.
 
 ### Introduction
