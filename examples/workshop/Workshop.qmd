@@ -20,6 +20,8 @@ CCB collaborates with HMS quad-based researchers on computational solutions to e
 
 AlphaFold3 significantly advances protein structure prediction beyond AlphaFold2, offering greater accuracy and broader capabilities. AlphaFold3 can generate highly accurate biomolecular structure predictions directly from amino acid and nucleic acid sequences, including structures that incorporate proteins, DNA, RNA, ligands, ions, and chemical modifications to both proteins and nucleic acids.
 
+![Predicted structure of a gene-editing meganuclease in complex with the DNA sequence it binds to. The structure is predicted in Exercise 1 and visualized in Exercise 5. PDB 7RCE.](assets/pdb_7rce.png)
+
 The exercises below provide hands-on experience with running AlphaFold3 on O2. You will learn how to use the tool to predict either a single or multiple structures, visualize results, and interpret confidence metrics. The exercises will also cover best practices for optimizing resource usage and throughput, making it easier to scale up predictions across large sets of biomolecular targets.
 
 ### Setup
@@ -677,8 +679,8 @@ Click __Launch__, then __Connect to Jupyter__ once your session is allocated. Fi
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # download latest ccbfold release
-curl -L https://github.com/ccb-hms/ccbfold/archive/refs/tags/v0.1.4.tar.gz | tar -xz
-cd ccbfold-0.1.4
+curl -L https://github.com/ccb-hms/ccbfold/archive/refs/tags/v0.1.5.tar.gz | tar -xz
+cd ccbfold-0.1.5
 
 # restore venv and activate
 uv sync --extra visualization
