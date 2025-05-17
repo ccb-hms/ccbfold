@@ -19,6 +19,8 @@ INPUT_FILE=${INPUT_FILES[$SLURM_ARRAY_TASK_ID]}
 OUTPUT_DIR="af3_inference_outputs"
 mkdir -p "$OUTPUT_DIR"
 
+# to get templates we omit `--norun_data_pipeline`
+# AF3 will still skip MSA
 run_alphafold.py \
    --json_path="$INPUT_FILE" \
    --output_dir="$OUTPUT_DIR"
