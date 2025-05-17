@@ -697,14 +697,14 @@ jupyter notebook
 If the browser does not automatically open, click on the url [http://localhost:8888](http://localhost:8888){target="_blank"} or copy the juypter server url to a browser. Then open `pdb_7rce_visualization.ipynb`.
 :::
 
----
+### Summary
 
 You're now equipped with a variety of workflows for running AlphaFold3:
 
 - A single end-to-end prediction of a protein-DNA complex
 - Automatically generating inputs and running batch predictions
 - Separately running MSA and inference to optimize GPU usage
-- Accelerating MSA using GPU-based mmseqs2
+- Accelerating MSA using GPU-based `mmseqs2`
 
 Feel free to extend these approaches to your own data and explore more complex modeling tasks. Happy folding!
 
