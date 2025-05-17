@@ -3,7 +3,7 @@
 #SBATCH --mem=64G                # Memory total in GiB
 #SBATCH --partition=short        # Partition to run in
 #SBATCH -o logs/af3_msa_job_%A_%a.out       # STDOUT file
-#SBATCH -e logs/af3_msa_job_%A_%a.err       # STDERR file
+#SBATCH -e logs/af3_msa_job_%A_%a.out       # STDERR file
 #SBATCH -t 0-01:00               # Runtime in D-HH:MM
 #SBATCH --array=0-9              # Job array indices (for 10 .json files)
 
