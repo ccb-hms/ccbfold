@@ -531,16 +531,10 @@ colabfold_search \
    $OUTPUT_DIR
 ```
 
-Submit the job:
+Submit the job and save job id for later:
 
 ```bash
-sbatch step2_submit_colabfold_msa.sh
-# Submitted batch job <JOB_ID_HERE>
-```
-
-```bash
-# save job id for later
-MSA_JOB_ID=<JOB_ID_HERE>
+MSA_JOB_ID=$(sbatch --parsable step2_submit_colabfold_msa.sh)
 ```
 
 Next, we need to generate AlphaFold3 input files using the MSAs from `mmseqs2`:
