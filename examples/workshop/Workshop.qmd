@@ -683,8 +683,8 @@ Click __Launch__, then __Connect to Jupyter__ once your session is allocated. Fi
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # download latest ccbfold release
-curl -L https://github.com/ccb-hms/ccbfold/archive/refs/tags/v0.1.7.tar.gz | tar -xz
-cd ccbfold-0.1.7
+curl -L https://github.com/ccb-hms/ccbfold/archive/refs/tags/v0.1.8.tar.gz | tar -xz
+cd ccbfold-0.1.8
 
 # restore venv and activate
 uv sync --extra visualization
