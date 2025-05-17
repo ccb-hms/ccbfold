@@ -1,6 +1,6 @@
 [project]
 name = "ccbfold"
-version = "0.1.6"
+version = "0.1.7"
 description = "code for the HMS CCB/RC AF3 on O2 workshop"
 readme = "README.md"
 license  = "CC-BY-NC-SA-4.0"
