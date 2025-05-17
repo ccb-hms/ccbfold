@@ -4,14 +4,10 @@ requires-python = ">=3.12"
 
 [[package]]
 name = "af3cli"
-version = "0.4.1"
-source = { registry = "https://pypi.org/simple" }
+version = "0.4.2"
+source = { git = "https://github.com/alexvpickering/af3cli#21833d9ff0f7dd9f1b884753698b8dcea784cc73" }
 dependencies = [
     { name = "fire" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/d6/e7/dbe71c91e2065966495bdf896e493e5ca89515136f3cc928edc9ba92703d/af3cli-0.4.1.tar.gz", hash = "sha256:bf28f531456a3d56faabd5880a007ae783f534a6a4f6a5a62f2b5e77fa5a0d40", size = 74077, upload-time = "2025-03-18T10:19:05.547Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/20/1d/c6ce330f7768c3df925bfc7206d45c266809414ba350735fe44965497c09/af3cli-0.4.1-py3-none-any.whl", hash = "sha256:15754947c27ff13a10ada715176d808ebb4f94c1b34dda5e8596b1abda3e67e3", size = 35049, upload-time = "2025-03-18T10:19:04.256Z" },
 ]
 
 [[package]]
@@ -198,7 +194,7 @@ css = [
 
 [[package]]
 name = "ccbfold"
-version = "0.1.5"
+version = "0.1.7"
 source = { editable = "." }
 dependencies = [
     { name = "af3cli" },
@@ -219,7 +215,7 @@ visualization = [
 
 [package.metadata]
 requires-dist = [
-    { name = "af3cli", specifier = ">=0.4.1" },
+    { name = "af3cli", git = "https://github.com/alexvpickering/af3cli" },
     { name = "biopython", specifier = ">=1.84" },
     { name = "click", specifier = ">=8.1.8" },
     { name = "ipykernel", marker = "extra == 'visualization'", specifier = ">=6.29.5" },

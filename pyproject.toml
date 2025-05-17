@@ -33,3 +33,6 @@ ccbfold = "ccbfold:main"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.uv.sources]
+af3cli = { git = "https://github.com/alexvpickering/af3cli" }
