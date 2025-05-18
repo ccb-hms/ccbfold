@@ -452,7 +452,7 @@ sbatch --dependency=afterok:$MSA_JOB_ID step3_submit_inference_batch.sh
 
 ### Exercise 4: Run MSAs on GPU with mmseqs2
 
-Previously, we split MSA and inference execution to reduce wasted GPU time. In this exercise, we’ll take it a step further and use `mmseqs2`, which includes GPU acceleration for MSA generation, allowing throughput improvements of ~10x as compared to `jackhmmer` (what AF3 uses internally).
+Previously, we split MSA and inference execution to reduce wasted GPU time. In this exercise, we’ll take it a step further and use `mmseqs2`, which includes GPU acceleration for MSA generation, allowing throughput improvements up to ~20x as compared to `jackhmmer` (what AF3 uses internally).
 
 We’ll start by generating a `.fasta` file with all protein sequences:
 
