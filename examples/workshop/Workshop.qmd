@@ -151,8 +151,7 @@ Paste in the following:
 #SBATCH -c 20                    # Request 20 cores
 #SBATCH --mem=64G                # Memory total in GiB
 #SBATCH --partition=gpu          # Partition to run in
-#SBATCH -o pdb_7rce_%j.out       # File to which STDOUT will be written, including job ID (%j)
-#SBATCH -e pdb_7rce_%j.out       # File to which STDERR will be written, including job ID (%j)
+#SBATCH -o pdb_7rce_%j.out       # Output log file, job ID (%j)
 #SBATCH --gres=gpu:l40s:1        # GPU requested
 #SBATCH -t 0-01:00               # Runtime in D-HH:MM format
 
@@ -301,14 +300,13 @@ Paste the following script:
 
 ```bash
 #!/bin/bash
-#SBATCH -c 20                    # Request 20 cores
-#SBATCH --mem=64G                # Memory total in GiB
-#SBATCH --partition=gpu          # Partition to run in
-#SBATCH -o logs/af3_job_%A_%a.out       # STDOUT file
-#SBATCH -e logs/af3_job_%A_%a.out       # STDERR file
-#SBATCH --gres=gpu:l40s:1        # GPU requested
-#SBATCH -t 0-01:00               # Runtime in D-HH:MM
-#SBATCH --array=0-9              # Job array indices (for 10 .json files)
+#SBATCH -c 20                     # Request 20 cores
+#SBATCH --mem=64G                 # Memory total in GiB
+#SBATCH --partition=gpu           # Partition to run in
+#SBATCH -o logs/af3_job_%A_%a.out # Output log file, job ID (%A), task ID (%a)
+#SBATCH --gres=gpu:l40s:1         # GPU requested
+#SBATCH -t 0-01:00                # Runtime in D-HH:MM
+#SBATCH --array=0-9               # Job array indices (for 10 .json files)
 
 module load alphafold/3.0.1
 
@@ -357,13 +355,12 @@ Save the following:
 
 ```bash
 #!/bin/bash
-#SBATCH -c 20                    # Request 20 cores
-#SBATCH --mem=64G                # Memory total in GiB
-#SBATCH --partition=short        # Partition to run in
-#SBATCH -o logs/af3_msa_job_%A_%a.out       # STDOUT file
-#SBATCH -e logs/af3_msa_job_%A_%a.out       # STDERR file
-#SBATCH -t 0-01:00               # Runtime in D-HH:MM
-#SBATCH --array=0-9              # Job array indices (for 10 .json files)
+#SBATCH -c 20                          # Request 20 cores
+#SBATCH --mem=64G                      # Memory total in GiB
+#SBATCH --partition=short              # Partition to run in
+#SBATCH -o logs/af3_msa_job_%A_%a.out  # Output log file
+#SBATCH -t 0-01:00                     # Runtime in D-HH:MM
+#SBATCH --array=0-9                    # Job array indices (for 10 .json files)
 
 module load alphafold/3.0.1
 
@@ -413,14 +410,13 @@ Paste this:
 
 ```bash
 #!/bin/bash
-#SBATCH -c 2                     # Request 2 cores
-#SBATCH --mem=16G                # Memory total in GiB
-#SBATCH --partition=gpu          # Partition to run in
-#SBATCH -o logs/af3_inference_job_%A_%a.out       # STDOUT file
-#SBATCH -e logs/af3_inference_job_%A_%a.out       # STDERR file
-#SBATCH --gres=gpu:l40s:1        # GPU requested
-#SBATCH -t 0-01:00               # Runtime in D-HH:MM
-#SBATCH --array=0-9              # Job array indices (for 10 .json files)
+#SBATCH -c 2                                 # Request 2 cores
+#SBATCH --mem=16G                            # Memory total in GiB
+#SBATCH --partition=gpu                      # Partition to run in
+#SBATCH -o logs/af3_inference_job_%A_%a.out  # Output log file
+#SBATCH --gres=gpu:l40s:1                    # GPU requested
+#SBATCH -t 0-01:00                           # Runtime in D-HH:MM
+#SBATCH --array=0-9                          # Job array indices (for 10 .json files)
 
 module load alphafold/3.0.1
 
@@ -507,13 +503,12 @@ Paste this:
 
 ```bash
 #!/bin/bash
-#SBATCH -c 20                    # Request 20 cores
-#SBATCH --mem=64G                # Memory total in GiB
-#SBATCH --partition=gpu          # Partition to run in
-#SBATCH -o logs/colabfold_msa_job_%j.out       # STDOUT file
-#SBATCH -e logs/colabfold_msa_job_%j.out       # STDERR file
-#SBATCH --gres=gpu:l40s:1        # GPU requested
-#SBATCH -t 0-08:00               # Runtime in D-HH:MM
+#SBATCH -c 20                             # Request 20 cores
+#SBATCH --mem=64G                         # Memory total in GiB
+#SBATCH --partition=gpu                   # Partition to run in
+#SBATCH -o logs/colabfold_msa_job_%j.out  # Output log file
+#SBATCH --gres=gpu:l40s:1                 # GPU requested
+#SBATCH -t 0-08:00                        # Runtime in D-HH:MM
 
 module load localcolabfold/406d4c6
 module load mmseqs2/17-b804f
@@ -606,14 +601,13 @@ Paste the following:
 
 ```bash
 #!/bin/bash
-#SBATCH -c 20                    # Request 20 cores
-#SBATCH --mem=64G                # Memory total in GiB
-#SBATCH --partition=gpu          # Partition to run in
-#SBATCH -o logs/af3_inference_job_%A_%a.out       # STDOUT file
-#SBATCH -e logs/af3_inference_job_%A_%a.out       # STDERR file
-#SBATCH --gres=gpu:l40s:1        # GPU requested
-#SBATCH -t 0-01:00               # Runtime in D-HH:MM
-#SBATCH --array=0-9              # Job array indices (for 10 .json files)
+#SBATCH -c 20                                # Request 20 cores
+#SBATCH --mem=64G                            # Memory total in GiB
+#SBATCH --partition=gpu                      # Partition to run in
+#SBATCH -o logs/af3_inference_job_%A_%a.out  # Output log file
+#SBATCH --gres=gpu:l40s:1                    # GPU requested
+#SBATCH -t 0-01:00                           # Runtime in D-HH:MM
+#SBATCH --array=0-9                          # Job array indices (for 10 .json files)
 
 module load alphafold/3.0.1
 

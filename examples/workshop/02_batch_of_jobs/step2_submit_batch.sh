@@ -1,12 +1,11 @@
 #!/bin/bash
-#SBATCH -c 20                    # Request 20 cores
-#SBATCH --mem=64G                # Memory total in GiB
-#SBATCH --partition=gpu          # Partition to run in
-#SBATCH -o logs/af3_job_%A_%a.out       # STDOUT file
-#SBATCH -e logs/af3_job_%A_%a.out       # STDERR file
-#SBATCH --gres=gpu:l40s:1        # GPU requested
-#SBATCH -t 0-01:00               # Runtime in D-HH:MM
-#SBATCH --array=0-9              # Job array indices (for 10 .json files)
+#SBATCH -c 20                      # Request 20 cores
+#SBATCH --mem=64G                  # Memory total in GiB
+#SBATCH --partition=gpu            # Partition to run in
+#SBATCH -o logs/af3_job_%A_%a.out  # Output log file, job ID (%A), task ID (%a)
+#SBATCH --gres=gpu:l40s:1          # GPU requested
+#SBATCH -t 0-01:00                 # Runtime in D-HH:MM
+#SBATCH --array=0-9                # Job array indices (for 10 .json files)
 
 module load alphafold/3.0.1
 
