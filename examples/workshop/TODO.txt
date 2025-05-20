@@ -7,3 +7,5 @@
     - I beleive it does not -- needed to get AF3 to generate templates
     - after confirming, open issue
     - if not fixed in time, just run in no-template mode 
+add --job-name to all the example submission scripts
+    -we wont be able to find all the jobs otherwise

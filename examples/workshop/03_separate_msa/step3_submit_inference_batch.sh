@@ -1,4 +1,5 @@
 #!/bin/bash
+#SBATCH --job-name=AF3Workshop_03_step3
 #SBATCH -c 2                                 # Request 2 cores
 #SBATCH --mem=16G                            # Memory total in GiB
 #SBATCH --partition=gpu                      # Partition to run in
