@@ -168,6 +168,20 @@ Now you're ready to submit your first AlphaFold3 prediction job:
 sbatch pdb_7rce_submit.sh
 ```
 
+::: {.callout-important title="Specifying Account"}
+If you have multiple Slurm accounts, you will have to specify one. For example: 
+
+```bash
+sbatch -A ccb pdb_7rce_submit.sh
+```
+
+To check available accounts:
+
+```bash
+sacctmgr show associations user=$USER format=Account%35
+```
+:::
+
 ::: {.callout-note collapse="false" title="Helpful Slurm Commands"}
 To check the status of current jobs:
 
